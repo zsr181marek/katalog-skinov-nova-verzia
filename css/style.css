@@ -26,8 +26,6 @@ body {
     height: 70px !important;
     min-height: 70px !important;
     z-index: 9999 !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
 /* Posun obsahu pod navbar */
@@ -166,7 +164,7 @@ body {
 }
 
 /* ================================
-   ANIMÁCIE KABÍN – SPRÁVNE CESTY PRE /css/style.css
+   ANIMÁCIE KABÍN – SPRÁVNE CESTY
    ================================ */
 
 .cab751-img {
