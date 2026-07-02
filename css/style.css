@@ -1,0 +1,203 @@
+:root {
+    --bg:      #f5f6f8;
+    --surface: #ffffff;
+    --border:  #e3e6ec;
+    --text:    #1e2330;
+    --green:   #22a84a;
+    --green-h: #1a8f3d;
+    --radius:  12px;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    padding: 2rem 0 3rem;
+    background: #d3d4d5;
+    padding-top: 80px;
+
+}
+
+
+
+
+.skin-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s, transform .2s;
+}
+.skin-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,.09);
+    transform: translateY(-2px);
+}
+
+.skin-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #e9eaec;
+}
+.skin-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .35s ease;
+}
+.skin-card:hover .skin-img-wrap img { transform: scale(1.04); }
+
+
+.type-badge {
+    position: absolute;
+    top: .6rem;
+    left: .6rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .22em .75em;
+    border-radius: 99px;
+}
+.badge-skin   { background: #dbeafe; color: #1d4ed8; }
+.badge-model  { background: #fef3c7; color: #b45309; }
+.badge-trat   { background: #dcfce7; color: #15803d; }
+.badge-cabin  { background: #f3e8ff; color: #7c3aed; }
+
+
+.skin-card .card-body {
+    padding: 1rem 1.1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .45rem;
+    flex: 1;
+}
+.skin-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.3;
+}
+.skin-desc {
+    font-size: .83rem;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+    margin: 0;
+}
+
+
+.btn {
+    display: block;
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: .85rem;
+    border: none;
+    border-radius: 8px;
+    padding: .5em 0;
+    text-align: center;
+    text-decoration: none;
+    margin-top: .5rem;
+    transition: background .2s;
+}
+
+.disabled {
+  background: #0070fc !important;
+  color: #fff !important ;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+.btn:hover { background: var(--green-h); color: #fff; }
+.col-12 h1,
+.col-12 h2 {
+    margin: 25px 0 10px;
+    font-weight: 700;
+}
+
+.cab751-img {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    animation: swap751 3s infinite;
+}
+
+
+@keyframes swap751 {
+    0% {
+        background-image: url("..//img//751_z_cab1.jpg");
+    }
+    33% {
+        background-image: url("..//img//751_z_cab1.jpg");
+    }
+
+    34% {
+        background-image: url("..//img//751_z_cab2.jpg");
+    }
+    66% {
+        background-image: url("..//img//751_z_cab2.jpg");
+    }
+
+    67% {
+        background-image: url("..//img//751_z_cab3.jpg");
+    }
+    100% {
+        background-image: url("..//img//751_z_cab3.jpg");
+    }
+}
+
+.cab740-img {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    animation: swap740 3s infinite;
+}
+
+@keyframes swap740{
+    0% {
+        background-image: url("..//img//740_z_cab1.jpg");
+    }
+    33% {
+        background-image: url("..//img//740_z_cab1.jpg");
+    }
+
+    34% {
+        background-image: url("..//img//740_z_cab2.jpg");
+    }
+    66% {
+        background-image: url("..//img//740_z_cab2.jpg");
+    }
+
+    67% {
+        background-image: url("..//img//740_z_cab3.jpg");
+    }
+    100% {
+        background-image: url("..//img//740_z_cab3.jpg");
+    } 
+}
+.info-big {
+    width: 100%;
+    white-space: nowrap;       
+    text-align: center;        
+    font-size: 2.4rem;         
+    font-weight: 900;
+    color: #9aa0ac;
+    margin-top: 30px;
+    letter-spacing: 1px;
+}
+.navbar{
+    position: sticky;
+    top: 0;
+}
+
