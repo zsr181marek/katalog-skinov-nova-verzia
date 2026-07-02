@@ -176,13 +176,13 @@ body {
 
 @keyframes swap751 {
     0%, 33% {
-        background-image: url("img/751_z_cab1.jpg");
+        background-image: url("../img/751_z_cab1.jpg");
     }
     34%, 66% {
-        background-image: url("img/751_z_cab2.jpg");
+        background-image: url("../img/751_z_cab2.jpg");
     }
     67%, 100% {
-        background-image: url("img/751_z_cab3.jpg");
+        background-image: url("../img/751_z_cab3.jpg");
     }
 }
 
@@ -196,15 +196,16 @@ body {
 
 @keyframes swap740 {
     0%, 33% {
-        background-image: url("img/740_z_cab1.jpg");
+        background-image: url("../img/740_z_cab1.jpg");
     }
     34%, 66% {
-        background-image: url("img/740_z_cab2.jpg");
+        background-image: url("../img/740_z_cab2.jpg");
     }
     67%, 100% {
-        background-image: url("img/740_z_cab3.jpg");
+        background-image: url("../img/740_z_cab3.jpg");
     }
 }
+
 
 /* INFO TEXT */
 .info-big {
