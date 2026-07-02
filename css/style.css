@@ -8,19 +8,27 @@
     --radius:  12px;
 }
 
+/* FIXED NAVBAR – NEPOSÚVA SA */
+.navbar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    z-index: 9999;
+}
+
+/* Posun obsahu pod navbar */
 body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Nunito', sans-serif;
-    padding: 2rem 0 3rem;
     background: #d3d4d5;
-    padding-top: 80px;
-
+    padding-top: 70px; /* presná výška navbaru */
+    padding-bottom: 3rem;
 }
 
-
-
-
+/* KARTY */
 .skin-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -51,7 +59,7 @@ body {
 }
 .skin-card:hover .skin-img-wrap img { transform: scale(1.04); }
 
-
+/* BADGE */
 .type-badge {
     position: absolute;
     top: .6rem;
@@ -68,7 +76,7 @@ body {
 .badge-trat   { background: #dcfce7; color: #15803d; }
 .badge-cabin  { background: #f3e8ff; color: #7c3aed; }
 
-
+/* TEXTY */
 .skin-card .card-body {
     padding: 1rem 1.1rem 1.1rem;
     display: flex;
@@ -85,13 +93,13 @@ body {
 }
 .skin-desc {
     font-size: .83rem;
-    color: var(--muted);
+    color: #6b7280;
     line-height: 1.55;
     flex: 1;
     margin: 0;
 }
 
-
+/* TLAČIDLÁ */
 .btn {
     display: block;
     width: 100%;
@@ -108,22 +116,23 @@ body {
     margin-top: .5rem;
     transition: background .2s;
 }
+.btn:hover { background: var(--green-h); color: #fff; }
 
 .disabled {
   background: #0070fc !important;
-  color: #fff !important ;
+  color: #fff !important;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-
-.btn:hover { background: var(--green-h); color: #fff; }
+/* NADPISY */
 .col-12 h1,
 .col-12 h2 {
     margin: 25px 0 10px;
     font-weight: 700;
 }
 
+/* ANIMÁCIE KABÍN – OPRAVENÉ CESTY */
 .cab751-img {
     width: 100%;
     height: 200px;
@@ -132,27 +141,15 @@ body {
     animation: swap751 3s infinite;
 }
 
-
 @keyframes swap751 {
-    0% {
-        background-image: url("..//img//751_z_cab1.jpg");
+    0%, 33% {
+        background-image: url("img/751_z_cab1.jpg");
     }
-    33% {
-        background-image: url("..//img//751_z_cab1.jpg");
+    34%, 66% {
+        background-image: url("img/751_z_cab2.jpg");
     }
-
-    34% {
-        background-image: url("..//img//751_z_cab2.jpg");
-    }
-    66% {
-        background-image: url("..//img//751_z_cab2.jpg");
-    }
-
-    67% {
-        background-image: url("..//img//751_z_cab3.jpg");
-    }
-    100% {
-        background-image: url("..//img//751_z_cab3.jpg");
+    67%, 100% {
+        background-image: url("img/751_z_cab3.jpg");
     }
 }
 
@@ -164,44 +161,26 @@ body {
     animation: swap740 3s infinite;
 }
 
-@keyframes swap740{
-    0% {
-        background-image: url("..//img//740_z_cab1.jpg");
+@keyframes swap740 {
+    0%, 33% {
+        background-image: url("img/740_z_cab1.jpg");
     }
-    33% {
-        background-image: url("..//img//740_z_cab1.jpg");
+    34%, 66% {
+        background-image: url("img/740_z_cab2.jpg");
     }
-
-    34% {
-        background-image: url("..//img//740_z_cab2.jpg");
+    67%, 100% {
+        background-image: url("img/740_z_cab3.jpg");
     }
-    66% {
-        background-image: url("..//img//740_z_cab2.jpg");
-    }
-
-    67% {
-        background-image: url("..//img//740_z_cab3.jpg");
-    }
-    100% {
-        background-image: url("..//img//740_z_cab3.jpg");
-    } 
 }
+
+/* INFO TEXT */
 .info-big {
     width: 100%;
-    white-space: nowrap;       
-    text-align: center;        
-    font-size: 2.4rem;         
+    white-space: nowrap;
+    text-align: center;
+    font-size: 2.4rem;
     font-weight: 900;
     color: #9aa0ac;
     margin-top: 30px;
     letter-spacing: 1px;
 }
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-}
-
-
