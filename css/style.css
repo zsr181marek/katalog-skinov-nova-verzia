@@ -39,40 +39,53 @@ body {
 }
 
 /* ================================
-   TVOJE PÔVODNÉ ŠTÝLY
+   MODERNÉ FARBY
    ================================ */
 
 :root {
-    --bg:      #f5f6f8;
-    --surface: #ffffff;
-    --border:  #e3e6ec;
-    --text:    #1e2330;
-    --green:   #22a84a;
-    --green-h: #1a8f3d;
-    --radius:  12px;
+    --bg:      #eef1f7;
+    --surface: rgba(255,255,255,0.85);
+    --border:  rgba(255,255,255,0.35);
+    --text:    #1a1f29;
+
+    /* Moderné akcenty */
+    --green:      #2ecc71;
+    --green-h:    #27ae60;
+
+    /* Neonové odtiene */
+    --blue-neon:  #4dabff;
+    --purple-neon:#b37cff;
+    --orange-neon:#ffb36b;
+    --yellow-neon:#ffe66b;
+
+    --radius:  14px;
 }
 
 body {
-    background: #d3d4d5;
+    background: linear-gradient(135deg, #e8ecf5, #f4f6fb);
     color: var(--text);
     font-family: 'Nunito', sans-serif;
     padding-bottom: 3rem;
 }
 
-/* KARTY */
+/* ================================
+   KARTY – MODERNÝ GLASS LOOK
+   ================================ */
+
 .skin-card {
     background: var(--surface);
+    backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
-    transition: box-shadow .2s, transform .2s;
+    transition: box-shadow .25s, transform .25s;
 }
 .skin-card:hover {
-    box-shadow: 0 6px 24px rgba(0,0,0,.09);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    transform: translateY(-4px);
 }
 
 .skin-img-wrap {
@@ -88,9 +101,12 @@ body {
     object-fit: cover;
     transition: transform .35s ease;
 }
-.skin-card:hover .skin-img-wrap img { transform: scale(1.04); }
+.skin-card:hover .skin-img-wrap img { transform: scale(1.06); }
 
-/* BADGE */
+/* ================================
+   BADGE – MODERNÉ FARBY
+   ================================ */
+
 .type-badge {
     position: absolute;
     top: .6rem;
@@ -101,13 +117,18 @@ body {
     text-transform: uppercase;
     padding: .22em .75em;
     border-radius: 99px;
+    backdrop-filter: blur(6px);
 }
-.badge-skin   { background: #dbeafe; color: #1d4ed8; }
-.badge-model  { background: #fef3c7; color: #b45309; }
-.badge-trat   { background: #dcfce7; color: #15803d; }
-.badge-cabin  { background: #f3e8ff; color: #7c3aed; }
 
-/* TEXTY */
+.badge-skin   { background: #dbeafe; color: #1d4ed8; }
+.badge-model  { background: #ffe8c7; color: #b45309; }
+.badge-trat   { background: #d6fcd9; color: #15803d; }
+.badge-cabin  { background: #f0e1ff; color: #7c3aed; }
+
+/* ================================
+   TEXTY
+   ================================ */
+
 .skin-card .card-body {
     padding: 1rem 1.1rem 1.1rem;
     display: flex;
@@ -130,24 +151,30 @@ body {
     margin: 0;
 }
 
-/* TLAČIDLÁ */
+/* ================================
+   TLAČIDLÁ – MODERNÝ GRADIENT
+   ================================ */
+
 .btn {
     display: block;
     width: 100%;
-    background: var(--green);
+    background: linear-gradient(135deg, var(--green), var(--green-h));
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: .85rem;
     border: none;
-    border-radius: 8px;
-    padding: .5em 0;
+    border-radius: 10px;
+    padding: .55em 0;
     text-align: center;
     text-decoration: none;
     margin-top: .5rem;
-    transition: background .2s;
+    transition: transform .2s, box-shadow .2s;
 }
-.btn:hover { background: var(--green-h); color: #fff; }
+.btn:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.15);
+}
 
 .disabled {
   background: #0070fc !important;
@@ -156,7 +183,10 @@ body {
   pointer-events: none;
 }
 
-/* NADPISY */
+/* ================================
+   NADPISY
+   ================================ */
+
 .col-12 h1,
 .col-12 h2 {
     margin: 25px 0 10px;
@@ -207,7 +237,10 @@ body {
     }
 }
 
-/* INFO TEXT */
+/* ================================
+   INFO TEXT
+   ================================ */
+
 .info-big {
     width: 100%;
     white-space: nowrap;
