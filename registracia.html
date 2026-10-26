@@ -123,10 +123,12 @@
   const SUPABASE_URL = "https://dhqnvsseamfbzbdwerut.supabase.co";
   const SUPABASE_KEY = "sb_publishable_i0ewGk_1lebSVchuqkJbog_XbchvjxD";
 
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+window.siteSupabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const supabaseClient = window.siteSupabase;
 
   const form = document.getElementById("registerForm");
   const message = document.getElementById("message");
@@ -184,6 +186,6 @@
     }
   });
 </script>
-
+<script src="js/auth-status.js"></script>
 </body>
 </html>
