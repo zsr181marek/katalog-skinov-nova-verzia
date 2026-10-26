@@ -167,8 +167,8 @@
       window.location.href = "index.html";
 
     } catch (error) {
-      message.textContent =
-        "Nepodarilo sa spojiť so serverom. Skús to znova.";
+      console.error("Chyba pripojenia:", error);
+      message.textContent = "Chyba: " + error.message;
       message.classList.add("text-danger");
 
     } finally {
