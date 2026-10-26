@@ -154,8 +154,8 @@
         });
 
       if (error) {
-        message.textContent =
-          "Prihlásenie sa nepodarilo. Skontroluj e-mail a heslo.";
+        console.error("Chyba Supabase:", error);
+        message.textContent = "Chyba: " + error.message;
         message.classList.add("text-danger");
         return;
       }
