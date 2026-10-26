@@ -1,72 +1,186 @@
 
-(() => {
+(async function () {
+    "use strict";
+
     const SUPABASE_URL =
         "https://dhqnvsseamfbzbdwerut.supabase.co";
 
     const SUPABASE_KEY =
         "sb_publishable_i0ewGk_1lebSVchuqkJbog_XbchvjxD";
 
-    if (!window.supabase) return;
+    // Načítanie Supabase knižnice
+    function loadSupabase() {
+        if (window.supabase && window.supabase.createClient) {
+            return Promise.resolve();
+        }
 
-    // Použi existujúceho klienta, ak ho stránka už vytvorila.
-    const client = window.siteSupabase ||
-        (window.siteSupabase = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        ));
+        return new Promise(function (resolve, reject) {
+            const script = document.createElement("script");
 
-    let indicator = null;
+            script.src =
+                "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
 
-    function showIndicator(session) {
-        if (!session) {
-            if (indicator) {
-                indicator.remove();
-                indicator = null;
-            }
+            script.onload = resolve;
+
+            script.onerror = function () {
+                reject(new Error("Supabase sa nepodarilo načítať."));
+            };
+
+            document.head.appendChild(script);
+        });
+    }
+
+    // Vyhľadanie odkazu Prihlásenie v navbare
+    function findLoginLink() {
+        const links = Array.from(
+            document.querySelectorAll(
+                ".navbar a, nav a, .navbar-nav a"
+            )
+        );
+
+        return links.find(function (link) {
+            const text = (link.textContent || "")
+                .trim()
+                .toLocaleLowerCase("sk");
+
+            const href = (link.getAttribute("href") || "")
+                .toLocaleLowerCase("sk");
+
+            return (
+                text.includes("prihlásenie") ||
+                text.includes("prihlasenie") ||
+                href.includes("prihlasenie")
+            );
+        }) || null;
+    }
+
+    function init(client) {
+        const loginLink = findLoginLink();
+
+        if (!loginLink) {
+            console.warn(
+                "V navbare sa nenašiel odkaz Prihlásenie."
+            );
             return;
         }
 
-        if (indicator) return;
+        // Vytvorenie indikátora vedľa odkazu
+        let indicator = document.querySelector(
+            ".auth-indicator"
+        );
 
-        indicator = document.createElement("div");
-        indicator.className = "auth-indicator";
+        if (!indicator) {
+            indicator = document.createElement("span");
+            indicator.className = "auth-indicator";
+            indicator.setAttribute("aria-live", "polite");
 
-        indicator.innerHTML = `
-            <span class="auth-dot"></span>
-            <span>Prihlásený</span>
-            <button type="button" class="auth-logout">
-                Odhlásiť sa
-            </button>
-        `;
+            const dot = document.createElement("span");
+            dot.className = "auth-dot logged-out";
+            dot.setAttribute("aria-hidden", "true");
 
-        document.body.appendChild(indicator);
+            const label = document.createElement("span");
+            label.className = "auth-status-label";
+            label.textContent = "Odhlásený";
 
-        indicator.querySelector(".auth-logout")
-            .addEventListener("click", async () => {
-                const button =
-                    indicator.querySelector(".auth-logout");
+            const logout = document.createElement("button");
+            logout.type = "button";
+            logout.className = "auth-logout";
+            logout.textContent = "Odhlásiť sa";
+            logout.hidden = true;
 
-                button.disabled = true;
-                button.textContent = "Odhlasujem...";
+            indicator.append(dot, label, logout);
+
+            loginLink.insertAdjacentElement(
+                "afterend",
+                indicator
+            );
+
+            logout.addEventListener("click", async function () {
+                logout.disabled = true;
+                logout.textContent = "Odhlasujem…";
 
                 const { error } = await client.auth.signOut();
 
                 if (error) {
-                    alert("Odhlásenie sa nepodarilo.");
-                    button.disabled = false;
-                    button.textContent = "Odhlásiť sa";
+                    console.error(error);
+
+                    alert(
+                        "Odhlásenie sa nepodarilo. Skús to znova."
+                    );
+
+                    logout.disabled = false;
+                    logout.textContent = "Odhlásiť sa";
                     return;
                 }
 
-                window.location.href = "prihlasenie.html";
+                window.location.href =
+                    "/katalog-skinov-nova-verzia/prihlasenie.html";
             });
+        }
+
+        const dot = indicator.querySelector(".auth-dot");
+        const label = indicator.querySelector(
+            ".auth-status-label"
+        );
+        const logout = indicator.querySelector(".auth-logout");
+
+        function render(session) {
+            const loggedIn = Boolean(session);
+
+            dot.classList.toggle("logged-in", loggedIn);
+            dot.classList.toggle("logged-out", !loggedIn);
+
+            label.textContent = loggedIn
+                ? "Prihlásený"
+                : "Odhlásený";
+
+            logout.hidden = !loggedIn;
+
+            // Odkaz Prihlásenie zostáva viditeľný
+            loginLink.hidden = false;
+        }
+
+        // Overenie aktuálneho prihlásenia
+        client.auth.getSession()
+            .then(function ({ data, error }) {
+                if (error) {
+                    console.error(error);
+                    render(null);
+                    return;
+                }
+
+                render(data.session);
+            })
+            .catch(function (error) {
+                console.error(error);
+                render(null);
+            });
+
+        // Aktualizácia pri prihlásení a odhlásení
+        client.auth.onAuthStateChange(function (
+            _event,
+            session
+        ) {
+            render(session);
+        });
     }
 
-    client.auth.getSession().then(({ data, error }) => {
-        if (!error) showIndicator(data.session);
-    });
+    try {
+        await loadSupabase();
 
-    client.auth.onAuthStateChange((_event, session) => {
-        showIndicator(session);
-    });
+        // Zdieľaný Supabase klient
+        window.siteSupabase = window.siteSupabase ||
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+        init(window.siteSupabase);
+
+    } catch (error) {
+        console.error(
+            "Nepodarilo sa spustiť stav prihlásenia:",
+            error
+        );
+    }
 })();
