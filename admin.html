@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrácia komentárov</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{background:#f5f6f8}.review-admin-card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:18px;margin-bottom:16px}
+    .review-admin-card textarea{width:100%;min-height:90px}.muted{color:#666;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <main class="container py-4" style="max-width:950px">
+    <div class="d-flex justify-content-between align-items-center gap-3 mb-4">
+      <div><h1 class="h3 mb-1">Správa hodnotení</h1><p class="muted mb-0">Komentáre ku katalógovým položkám a odpovede správcu.</p></div>
+      <a href="index.html" class="btn btn-outline-secondary">Späť na katalóg</a>
+    </div>
+    <div id="admin-status" class="alert alert-info">Overujem prihlásenie…</div>
+    <div id="admin-list"></div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    "use strict";
+    const SUPABASE_URL = "https://dhqnvsseamfbzbdwerut.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_i0ewGk_1lebSVchuqkJbog_XbchvjxD";
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const statusBox = document.getElementById("admin-status");
+    const list = document.getElementById("admin-list");
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    const date = s => new Date(s).toLocaleString("sk-SK");
+
+    async function start() {
+      const { data: { user } } = await db.auth.getUser();
+      if (!user) {
+        statusBox.className = "alert alert-warning";
+        statusBox.innerHTML = 'Na správu komentárov sa musíte <a href="prihlasenie.html">prihlásiť</a>.';
+        return;
+      }
+      const { data: role, error: roleError } = await db.from("catalog_admins").select("user_id").eq("user_id", user.id).maybeSingle();
+      if (roleError || !role) {
+        statusBox.className = "alert alert-danger";
+        statusBox.textContent = "Tento účet nemá administrátorské oprávnenie.";
+        return;
+      }
+      statusBox.className = "alert alert-success";
+      statusBox.textContent = "Prihlásený administrátor: " + (user.email || user.id);
+      await refresh();
+    }
+
+    async function refresh() {
+      list.innerHTML = '<p class="text-muted">Načítavam komentáre…</p>';
+      const { data, error } = await db.from("catalog_reviews")
+        .select("id,item_name,item_key,rating,comment,created_at,admin_reply,admin_reply_at,user_id")
+        .order("created_at", { ascending: false });
+      if (error) {
+        list.innerHTML = '<div class="alert alert-danger">Komentáre sa nepodarilo načítať. Skontrolujte SQL a RLS nastavenia.</div>';
+        console.error(error);
+        return;
+      }
+      if (!data.length) { list.innerHTML = '<p class="text-muted">Zatiaľ tu nie sú žiadne hodnotenia.</p>'; return; }
+      list.innerHTML = data.map(r => `
+        <article class="review-admin-card">
+          <div class="d-flex justify-content-between gap-3 flex-wrap">
+            <h2 class="h5 mb-1">${esc(r.item_name)} <span class="text-warning">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</span></h2>
+            <span class="muted">${date(r.created_at)}</span>
+          </div>
+          <p class="mb-2"><strong>Komentár:</strong><br>${esc(r.comment || "Bez textového komentára")}</p>
+          <p class="muted">ID používateľa: ${esc(r.user_id)}</p>
+          <label class="form-label fw-semibold" for="reply-${r.id}">Odpoveď správcu</label>
+          <textarea class="form-control mb-2" id="reply-${r.id}" maxlength="2000" placeholder="Napíšte odpoveď…">${esc(r.admin_reply || "")}</textarea>
+          <div class="d-flex gap-2 align-items-center">
+            <button class="btn btn-primary" data-save="${r.id}">Uložiť odpoveď</button>
+            <span class="muted" id="msg-${r.id}"></span>
+          </div>
+        </article>`).join("");
+
+      list.querySelectorAll("[data-save]").forEach(button => button.addEventListener("click", async () => {
+        const id = button.dataset.save;
+        const reply = document.getElementById("reply-" + id).value.trim();
+        const msg = document.getElementById("msg-" + id);
+        button.disabled = true; msg.textContent = "Ukladám…";
+        const { error: saveError } = await db.from("catalog_reviews").update({
+          admin_reply: reply || null,
+          admin_reply_at: reply ? new Date().toISOString() : null
+        }).eq("id", id);
+        button.disabled = false;
+        if (saveError) {
+          msg.textContent = "Chyba pri ukladaní.";
+          console.error(saveError);
+        } else {
+          msg.textContent = "Odpoveď uložená.";
+        }
+      }));
+    }
+
+    start().catch(error => {
+      statusBox.className = "alert alert-danger";
+      statusBox.textContent = "Nastala chyba pri kontrole administrátora.";
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
