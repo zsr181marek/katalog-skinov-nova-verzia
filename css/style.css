@@ -408,3 +408,290 @@ body {
     }
 }
 
+```css
+/* =========================================
+   HODNOTENIA A KOMENTÁRE – GLASS DESIGN
+   ========================================= */
+
+.review-area {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(128, 128, 128, 0.18);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    color: var(--text, #1a1f29);
+}
+
+/* =========================================
+   PRIEMERNÉ HODNOTENIE
+   ========================================= */
+
+.review-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 13px;
+    font-size: 13px;
+}
+
+.review-summary strong {
+    font-weight: 800;
+    color: var(--text, #1a1f29);
+}
+
+.review-summary span {
+    color: #7b8492;
+    font-size: 12px;
+}
+
+/* =========================================
+   HVIEZDIČKY
+   ========================================= */
+
+.review-stars {
+    display: inline-flex;
+    align-items: center;
+    color: #f2b84b;
+    font-size: 16px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(242, 184, 75, 0.15);
+}
+
+.review-stars-empty {
+    color: #d5d9e1;
+}
+
+/* =========================================
+   FORMULÁR NA PRIDÁVANIE HODNOTENIA
+   ========================================= */
+
+.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin-top: 13px;
+    margin-bottom: 17px;
+    padding: 13px;
+    background: rgba(255, 255, 255, 0.58);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Popisy polí */
+
+.review-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #424b5a;
+}
+
+/* Výber hviezdičiek a textové pole */
+
+.review-form select,
+.review-form textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 9px 11px;
+    border: 1px solid rgba(150, 160, 175, 0.35);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #303846;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Efekt pri kliknutí do polí */
+
+.review-form select:focus,
+.review-form textarea:focus {
+    border-color: var(--green, #2ecc71);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12);
+}
+
+.review-form textarea {
+    min-height: 75px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+/* =========================================
+   TLAČIDLO ODOSLAŤ
+   ========================================= */
+
+.review-submit {
+    align-self: flex-start;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 9px;
+    background: linear-gradient(
+        135deg,
+        var(--green, #2ecc71),
+        var(--green-h, #27ae60)
+    );
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.review-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 13px rgba(39, 174, 96, 0.25);
+}
+
+.review-submit:active {
+    transform: translateY(0);
+}
+
+.review-submit:disabled {
+    opacity: 0.55;
+    cursor: wait;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================================
+   SPRÁVY A PRIHLÁSENIE
+   ========================================= */
+
+.review-message {
+    margin: 0;
+    color: #21834b;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.review-error {
+    padding: 9px 11px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.08);
+    color: #b42332;
+    font-size: 12px;
+}
+
+.review-login-note,
+.review-empty {
+    margin: 9px 0;
+    color: #7b8492;
+    font-size: 12px;
+}
+
+.review-login-note a {
+    color: #21965b;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.review-login-note a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   ZOZNAM KOMENTÁROV
+   ========================================= */
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.review-entry {
+    padding: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.48);
+}
+
+/* Dátum a hviezdičky */
+
+.review-entry-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.review-entry time {
+    color: #89919e;
+    font-size: 11px;
+}
+
+/* Text komentára */
+
+.review-comment {
+    margin: 8px 0 0;
+    color: #454e5c;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   ODPOVEĎ ADMINISTRÁTORA
+   ========================================= */
+
+.review-admin-reply {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--green, #2ecc71);
+    border-radius: 0 9px 9px 0;
+    background: rgba(46, 204, 113, 0.08);
+}
+
+.review-admin-reply strong {
+    color: #21834b;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.review-admin-reply p {
+    margin: 5px 0 0;
+    color: #45534b;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   MOBILNÉ ZOBRAZENIE
+   ========================================= */
+
+@media (max-width: 600px) {
+    .review-area {
+        margin-top: 14px;
+        padding-top: 12px;
+    }
+
+    .review-form {
+        padding: 10px;
+    }
+
+    .review-entry {
+        padding: 9px;
+    }
+
+    .review-stars {
+        font-size: 15px;
+    }
+
+    .review-submit {
+        width: 100%;
+        text-align: center;
+    }
+}
+```
