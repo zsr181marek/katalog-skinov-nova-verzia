@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obnovenie hesla | Katalóg skinov</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top bg-dark navbar-dark">
+    <div class="container">
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="offcanvas offcanvas-end text-bg-dark"
+             tabindex="-1" id="offcanvasNavbar">
+
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="index.html">DOMOV</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="motorove-rusne.html">MOTOROVÉ RUŠNE</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="elektricke-rusne.html">ELEKTRICKÉ RUŠNE</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="motorove-vozne.html">MOTOROVÉ VOZNE</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="vozne.html">VOZNE</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="kabiny-zvuky.html">KABÍNY A ZVUKY</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2" href="aktivity.html">AKTIVITY</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link mx-lg-2 active" href="prihlasenie.html">PRIHLÁSENIE</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<main class="container">
+
+    <div class="auth-container">
+
+        <h1>Nové heslo</h1>
+
+        <p class="text-muted text-center">
+            Zadaj svoje nové heslo a potvrď ho.
+        </p>
+
+        <form id="passwordForm">
+
+            <label for="password" class="form-label">
+                Nové heslo
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Zadaj nové heslo"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+            <label for="confirmPassword" class="form-label">
+                Potvrdenie nového hesla
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                class="form-control"
+                placeholder="Zopakuj nové heslo"
+                minlength="8"
+                autocomplete="new-password"
+                required
+            >
+
+            <button type="submit" id="saveButton" class="btn btn-primary">
+                Zmeniť heslo
+            </button>
+
+            <p id="message" class="mt-3 mb-0" role="status"></p>
+
+        </form>
+
+        <p class="text-center mt-4 mb-0">
+            <a href="prihlasenie.html">Späť na prihlásenie</a>
+        </p>
+
+    </div>
+
+</main>
+
+
+<script>
+    const SUPABASE_URL = "https://dhqnvsseamfbzbdwerut.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_i0ewGk_1lebSVchuqkJbog_XbchvjxD";
+
+    const supabaseClient = window.siteSupabase ||
+        window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    window.siteSupabase = supabaseClient;
+
+    const form = document.getElementById("passwordForm");
+    const message = document.getElementById("message");
+    const button = document.getElementById("saveButton");
+
+    let recoveryReady = false;
+
+    function showMessage(text, type) {
+        message.className = "mt-3 mb-0 text-" + type;
+        message.textContent = text;
+    }
+
+    // Kontrola odkazu z e-mailu
+    async function checkRecoverySession() {
+
+        const hash = new URLSearchParams(
+            window.location.hash.substring(1)
+        );
+
+        const query = new URLSearchParams(window.location.search);
+
+        const code = query.get("code");
+        const accessToken = hash.get("access_token");
+        const refreshToken = hash.get("refresh_token");
+
+        // PKCE spôsob obnovy
+        if (code) {
+            const { error } = await supabaseClient.auth.exchangeCodeForSession(code);
+
+            if (error) {
+                showMessage("Odkaz na obnovenie hesla je neplatný alebo vypršal. Požiadaj o nový.", "danger");
+                button.disabled = true;
+                return;
+            }
+        }
+
+        // Implicitný spôsob obnovy
+        else if (accessToken && refreshToken) {
+            const { error } = await supabaseClient.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken
+            });
+
+            if (error) {
+                showMessage("Odkaz na obnovenie hesla je neplatný alebo vypršal. Požiadaj o nový.", "danger");
+                button.disabled = true;
+                return;
+            }
+        }
+
+        const { data, error } = await supabaseClient.auth.getSession();
+
+        if (error || !data.session) {
+            showMessage("Odkaz na obnovenie hesla je neplatný alebo vypršal. Požiadaj o nový.", "danger");
+            button.disabled = true;
+            return;
+        }
+
+        recoveryReady = true;
+        showMessage("Overenie úspešné. Teraz si môžeš nastaviť nové heslo.", "success");
+    }
+
+    // Zmena hesla
+    form.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        if (!recoveryReady) {
+            showMessage("Najprv musíš otvoriť platný odkaz z e-mailu.", "danger");
+            return;
+        }
+
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password.length < 8) {
+            showMessage("Heslo musí obsahovať aspoň 8 znakov.", "danger");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showMessage("Heslá sa nezhodujú.", "danger");
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Ukladám...";
+
+        const { error } = await supabaseClient.auth.updateUser({
+            password: password
+        });
+
+        button.disabled = false;
+        button.textContent = "Zmeniť heslo";
+
+        if (error) {
+            showMessage("Heslo sa nepodarilo zmeniť: " + error.message, "danger");
+        } else {
+            recoveryReady = false;
+            form.hidden = true;
+
+            showMessage(
+                "Heslo bolo úspešne zmenené. Teraz sa môžeš prihlásiť.",
+                "success"
+            );
+
+            await supabaseClient.auth.signOut();
+        }
+    });
+
+    // Zachytenie udalosti obnovenia hesla
+    supabaseClient.auth.onAuthStateChange(function(event, session) {
+        if (event === "PASSWORD_RECOVERY" && session) {
+            recoveryReady = true;
+            showMessage("Overenie úspešné. Nastav si nové heslo.", "success");
+        }
+    });
+
+    checkRecoverySession();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

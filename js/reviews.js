@@ -1,23 +1,66 @@
-/* Hodnotenia a komentáre ku kartám katalógu.
-   Vyžaduje existujúci window.siteSupabase z js/auth-status.js.
-   Funguje na stránkach, kde majú položky triedu .skin-card a názov .skin-name.
-*/
+/* Turnstile + hodnotenia katalogu.
+   Na strankach musi byt najprv nacitany js/auth-status.js.
+   Komentare sa ukladaju cez Supabase Edge Function submit-review,
+   nie priamo cez REST tabulku. */
 (async function () {
   "use strict";
 
-  const supabase = window.siteSupabase;
-  if (!supabase) {
-    console.warn("Hodnotenia: nenašiel sa window.siteSupabase. Skontroluj poradie skriptov.");
+  const SUPABASE_URL = "https://dhqnvsseamfbzbdwerut.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_i0ewGk_1lebSVchuqkJbog_XbchvjxD";
+
+  async function ensureSupabaseClient() {
+    if (window.siteSupabase) return window.siteSupabase;
+
+    if (!window.supabase || !window.supabase.createClient) {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
+        script.onload = resolve;
+        script.onerror = () => reject(new Error("Supabase knižnicu sa nepodarilo načítať."));
+        document.head.appendChild(script);
+      });
+    }
+
+    window.siteSupabase = window.siteSupabase ||
+      window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    return window.siteSupabase;
+  }
+
+  let supabase;
+  try {
+    supabase = await ensureSupabaseClient();
+  } catch (error) {
+    console.error("Hodnotenia:", error);
     return;
   }
 
+  const SITE_KEY = "0x4AAAAAAF595nZNCcL4_iSk";
   const cards = Array.from(document.querySelectorAll(".skin-card"));
   if (!cards.length) return;
 
-  const { data: { user } = {} } = await supabase.auth.getUser().catch(() => ({ data: { user: null } }));
+  await new Promise((resolve) => {
+    if (window.turnstile) return resolve();
+    const existing = document.querySelector('script[src*="challenges.cloudflare.com/turnstile"]');
+    if (existing) {
+      const check = setInterval(() => {
+        if (window.turnstile) { clearInterval(check); resolve(); }
+      }, 100);
+      setTimeout(() => { clearInterval(check); resolve(); }, 10000);
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = resolve;
+    script.onerror = resolve;
+    document.head.appendChild(script);
+  });
+
+  const { data: { user } = {} } = await supabase.auth.getUser()
+    .catch(() => ({ data: { user: null } }));
 
   function itemKey(name) {
-    // Stabilný identifikátor z názvu položky; zmeny názvu neskôr treba preniesť aj do DB.
     return name.trim().toLocaleLowerCase("sk")
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 120);
@@ -37,8 +80,7 @@
   async function loadReviews(card, name) {
     const key = itemKey(name);
     const target = card.querySelector(".review-area");
-    const { data, error } = await supabase
-      .from("catalog_reviews")
+    const { data, error } = await supabase.from("catalog_reviews")
       .select("id,item_key,item_name,rating,comment,created_at,admin_reply,admin_reply_at")
       .eq("item_key", key)
       .order("created_at", { ascending: false });
@@ -73,53 +115,82 @@
               <option value="1">★☆☆☆☆ – zlé</option>
             </select>
           </label>
-          <label> komentár (nepovinné)
+          <label>Komentár (nepovinné)
             <textarea name="comment" rows="3" maxlength="2000" placeholder="Napíšte svoj názor…"></textarea>
           </label>
+          <div class="review-turnstile"></div>
           <button type="submit" class="review-submit">Odoslať hodnotenie</button>
           <p class="review-message" role="status"></p>
         </form>` : `<p class="review-login-note"><a href="/katalog-skinov-nova-verzia/prihlasenie.html">Prihláste sa</a>, ak chcete hodnotiť alebo komentovať.</p>`}
       <div class="review-list">${reviewsHtml || '<p class="review-empty">Zatiaľ bez hodnotení. Buďte prvý!</p>'}</div>`;
 
     const form = target.querySelector(".review-form");
-    if (form) {
-      form.addEventListener("submit", async event => {
-        event.preventDefault();
-        const message = form.querySelector(".review-message");
-        const rating = Number(form.elements.rating.value);
-        const comment = form.elements.comment.value.trim();
-        const button = form.querySelector("button");
-        button.disabled = true;
-        message.textContent = "Odosielam…";
+    if (!form) return;
 
-        const { data: current } = await supabase.auth.getUser();
-        if (!current?.user) {
-          message.textContent = "Prihlásenie vypršalo. Prihláste sa znova.";
-          button.disabled = false;
-          return;
+    let widgetId = null;
+    const captchaContainer = form.querySelector(".review-turnstile");
+    const button = form.querySelector("button[type=submit]");
+    const message = form.querySelector(".review-message");
+
+    if (window.turnstile) {
+      widgetId = turnstile.render(captchaContainer, {
+        sitekey: SITE_KEY,
+        theme: "auto"
+      });
+    } else {
+      message.textContent = "CAPTCHA sa nepodarilo načítať. Obnovte stránku.";
+    }
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      message.textContent = "";
+
+      if (widgetId === null || !window.turnstile) {
+        message.textContent = "CAPTCHA nie je dostupná. Obnovte stránku.";
+        return;
+      }
+      const captchaToken = turnstile.getResponse(widgetId);
+      if (!captchaToken) {
+        message.textContent = "Najprv potvrďte CAPTCHA.";
+        return;
+      }
+
+      const rating = Number(form.elements.rating.value);
+      const comment = form.elements.comment.value.trim();
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+        message.textContent = "Vyberte hodnotenie od 1 do 5 hviezdičiek.";
+        return;
+      }
+
+      button.disabled = true;
+      message.textContent = "Odosielam…";
+
+      try {
+        const { data: current, error: userError } = await supabase.auth.getUser();
+        if (userError || !current?.user) {
+          throw new Error("Prihlásenie vypršalo. Prihláste sa znova.");
         }
 
-        // Jeden používateľ môže mať pre jednu položku jedno hodnotenie; ďalším odoslaním ho upraví.
-        const { error: saveError } = await supabase.from("catalog_reviews").upsert({
-          user_id: current.user.id,
-          item_key: key,
-          item_name: name,
-          rating,
-          comment: comment || null,
-          updated_at: new Date().toISOString()
-        }, { onConflict: "user_id,item_key" });
-
-        if (saveError) {
-          message.textContent = "Nepodarilo sa uložiť hodnotenie. Skontrolujte nastavenie Supabase.";
-          console.error("Uloženie hodnotenia:", saveError.message);
-          button.disabled = false;
-          return;
-        }
+        const { error: saveError } = await supabase.functions.invoke("submit-review", {
+          body: {
+            item_key: key,
+            item_name: name,
+            rating,
+            comment: comment || null,
+            captchaToken
+          }
+        });
+        if (saveError) throw saveError;
 
         message.textContent = "Hodnotenie bolo uložené.";
         await loadReviews(card, name);
-      });
-    }
+      } catch (error) {
+        console.error("Uloženie hodnotenia:", error);
+        message.textContent = error.message || "Nepodarilo sa uložiť hodnotenie.";
+        if (window.turnstile && widgetId !== null) turnstile.reset(widgetId);
+        button.disabled = false;
+      }
+    });
   }
 
   for (const card of cards) {
@@ -130,8 +201,7 @@
     const area = document.createElement("section");
     area.className = "review-area";
     area.setAttribute("aria-label", `Hodnotenia položky ${name}`);
-    const body = card.querySelector(".card-body") || card;
-    body.appendChild(area);
+    (card.querySelector(".card-body") || card).appendChild(area);
     await loadReviews(card, name);
   }
 })();
