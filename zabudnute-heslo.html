@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -8,8 +7,10 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -56,8 +57,7 @@
             <a class="nav-link mx-lg-2" href="aktivity.html">AKTIVITY</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-lg-2 active"
-               href="prihlasenie.html">PRIHLÁSENIE</a>
+            <a class="nav-link mx-lg-2 active" href="prihlasenie.html">PRIHLÁSENIE</a>
           </li>
         </ul>
       </div>
@@ -67,6 +67,7 @@
 
 <main class="container">
   <div class="auth-container">
+
     <h1>Zabudnuté heslo</h1>
 
     <p class="text-muted">
@@ -75,6 +76,7 @@
     </p>
 
     <form id="resetForm">
+
       <label for="email" class="form-label">E-mail</label>
 
       <input
@@ -86,20 +88,28 @@
         required
       >
 
+      <!-- Cloudflare Turnstile CAPTCHA -->
+      <div class="d-flex justify-content-center my-3">
+        <div
+          class="cf-turnstile"
+          data-sitekey="0x4AAAAAAF595nZNCcL4_iSk">
+        </div>
+      </div>
+
       <button type="submit" id="resetButton" class="btn btn-primary">
         Odoslať odkaz
       </button>
 
       <p id="message" class="mt-3 mb-0" role="status"></p>
+
     </form>
 
     <p class="text-center mt-4 mb-0">
       <a href="prihlasenie.html">Späť na prihlásenie</a>
     </p>
+
   </div>
 </main>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
   const SUPABASE_URL = "https://dhqnvsseamfbzbdwerut.supabase.co";
@@ -114,10 +124,24 @@
   const message = document.getElementById("message");
   const button = document.getElementById("resetButton");
 
+  const REDIRECT_URL =
+    "https://zsr181marek.github.io/katalog-skinov-nova-verzia/obnovenie-hesla.html";
+
   form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
+
+    // Získanie CAPTCHA tokenu
+    const captchaToken = window.turnstile
+      ? window.turnstile.getResponse()
+      : "";
+
+    if (!captchaToken) {
+      message.className = "mt-3 mb-0 text-danger";
+      message.textContent = "Najprv potvrď CAPTCHA.";
+      return;
+    }
 
     button.disabled = true;
     button.textContent = "Odosielam...";
@@ -127,26 +151,39 @@
     try {
       const { error } =
         await supabaseClient.auth.resetPasswordForEmail(email, {
-          redirectTo:
-            window.location.origin + "/obnovenie-hesla.html"
+          redirectTo: REDIRECT_URL,
+          captchaToken: captchaToken
         });
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
 
       message.className = "mt-3 mb-0 text-success";
       message.textContent =
         "Ak je e-mail zaregistrovaný, dostaneš pokyny na obnovenie hesla. Skontroluj aj priečinok Spam.";
 
+      form.reset();
+
     } catch (error) {
+      console.error("Chyba pri obnove hesla:", error);
+
       message.className = "mt-3 mb-0 text-danger";
       message.textContent =
-        "E-mail sa nepodarilo odoslať. Skontroluj nastavenia Supabase a skús to znova.";
+        "E-mail sa nepodarilo odoslať. Skús to znova alebo kontaktuj správcu stránky.";
+
     } finally {
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+
       button.disabled = false;
       button.textContent = "Odoslať odkaz";
     }
   });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
