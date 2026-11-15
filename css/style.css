@@ -1,23 +1,74 @@
-/* ================================
-   GITHUB PAGES FIX – MUSÍ BYŤ NA ZAČIATKU
-   ================================ */
 
-html, body {
+/* =========================================================
+   KATALÓG SKINOV – KOMPLETNÝ ŠTÝL
+   Denný/nočný režim je riadený cez html[data-theme="dark"].
+   ========================================================= */
+
+/* ZÁKLADNÉ PREMENNÉ – DENNÝ REŽIM */
+:root {
+    color-scheme: light;
+
+    --bg: #eef1f7;
+    --surface: rgba(255,255,255,0.85);
+    --border: rgba(255,255,255,0.45);
+    --text: #1a1f29;
+    --secondary: #6b7280;
+    --card-img-bg: #e9eaec;
+    --form-bg: rgba(255,255,255,0.58);
+    --input-bg: #ffffff;
+    --input-text: #303846;
+    --navbar-bg: #212529;
+
+    --green: #2ecc71;
+    --green-h: #27ae60;
+    --blue-neon: #4dabff;
+    --purple-neon: #b37cff;
+    --orange-neon: #ffb36b;
+    --yellow-neon: #ffe66b;
+
+    --radius: 14px;
+}
+
+/* PREMENNÉ – NOČNÝ REŽIM */
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg: #151a23;
+    --surface: #202938;
+    --border: #343e4e;
+    --text: #f1f3f5;
+    --secondary: #adb5bd;
+    --card-img-bg: #202938;
+    --form-bg: #252f40;
+    --input-bg: #1b2431;
+    --input-text: #f1f3f5;
+    --navbar-bg: #111820;
+}
+
+/* ZÁKLAD STRÁNKY */
+html,
+body {
     margin: 0 !important;
     padding: 0 !important;
-    scroll-padding-top: 0 !important;
+    min-height: 100%;
     overflow-x: hidden !important;
+    scroll-padding-top: 70px;
 }
 
-/* GitHub Pages pridáva margin hore – odstránené */
+html {
+    background: var(--bg);
+}
+
 body {
-    margin-top: 0 !important;
+    padding-top: 70px !important;
+    padding-bottom: 3rem !important;
+    background: linear-gradient(135deg, var(--bg), var(--bg)) !important;
+    color: var(--text) !important;
+    font-family: 'Nunito', sans-serif;
+    transition: background-color .25s ease, color .25s ease;
 }
 
-/* ================================
-   FIXED NAVBAR – NEPOSÚVA SA
-   ================================ */
-
+/* NAVBAR – FIXED POZÍCIA */
 .navbar {
     position: fixed !important;
     top: 0 !important;
@@ -26,63 +77,45 @@ body {
     height: 70px !important;
     min-height: 70px !important;
     z-index: 9999 !important;
+    background-color: var(--navbar-bg) !important;
 }
 
-/* Posun obsahu pod navbar */
-body {
-    padding-top: 70px !important;
+.navbar .navbar-toggler {
+    border-color: rgba(255,255,255,.35);
 }
 
-/* GitHub Pages scroll fix */
+.navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 .2rem rgba(255,255,255,.15);
+}
+
+.navbar .nav-link {
+    color: rgba(255,255,255,.85) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #ffffff !important;
+}
+
 .container {
-    scroll-margin-top: 0 !important;
+    scroll-margin-top: 80px !important;
 }
 
-/* ================================
-   MODERNÉ FARBY
-   ================================ */
-
-:root {
-    --bg:      #eef1f7;
-    --surface: rgba(255,255,255,0.85);
-    --border:  rgba(255,255,255,0.35);
-    --text:    #1a1f29;
-
-    /* Moderné akcenty */
-    --green:      #2ecc71;
-    --green-h:    #27ae60;
-
-    /* Neonové odtiene */
-    --blue-neon:  #4dabff;
-    --purple-neon:#b37cff;
-    --orange-neon:#ffb36b;
-    --yellow-neon:#ffe66b;
-
-    --radius:  14px;
-}
-
-body {
-    background: linear-gradient(135deg, #e8ecf5, #f4f6fb);
-    color: var(--text);
-    font-family: 'Nunito', sans-serif;
-    padding-bottom: 3rem;
-}
-
-/* ================================
-   KARTY – MODERNÝ GLASS LOOK
-   ================================ */
-
+/* KARTY */
 .skin-card {
     background: var(--surface);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
-    transition: box-shadow .25s, transform .25s;
+    transition: background-color .25s, border-color .25s,
+                box-shadow .25s, transform .25s;
 }
+
 .skin-card:hover {
     box-shadow: 0 10px 30px rgba(0,0,0,.12);
     transform: translateY(-4px);
@@ -93,24 +126,26 @@ body {
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    background: #e9eaec;
+    background: var(--card-img-bg);
 }
-.skin-img-wrap img {
+
+.skin-img-wrap > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform .35s ease;
 }
-.skin-card:hover .skin-img-wrap img { transform: scale(1.06); }
 
-/* ================================
-   BADGE – MODERNÉ FARBY
-   ================================ */
+.skin-card:hover .skin-img-wrap > img {
+    transform: scale(1.06);
+}
 
+/* OZNAČENIA TYPU */
 .type-badge {
     position: absolute;
     top: .6rem;
     left: .6rem;
+    z-index: 2;
     font-size: .68rem;
     font-weight: 700;
     letter-spacing: .04em;
@@ -118,17 +153,15 @@ body {
     padding: .22em .75em;
     border-radius: 99px;
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
-.badge-skin   { background: #dbeafe; color: #1d4ed8; }
-.badge-model  { background: #ffe8c7; color: #b45309; }
-.badge-aktivity   { background: #d6fcd9; color: #15803d; }
-.badge-cabin  { background: #f0e1ff; color: #7c3aed; }
+.badge-skin { background: #dbeafe; color: #1d4ed8; }
+.badge-model { background: #ffe8c7; color: #b45309; }
+.badge-aktivity { background: #d6fcd9; color: #15803d; }
+.badge-cabin { background: #f0e1ff; color: #7c3aed; }
 
-/* ================================
-   TEXTY
-   ================================ */
-
+/* TEXTY KARIET */
 .skin-card .card-body {
     padding: 1rem 1.1rem 1.1rem;
     display: flex;
@@ -136,6 +169,7 @@ body {
     gap: .45rem;
     flex: 1;
 }
+
 .skin-name {
     font-size: 1rem;
     font-weight: 700;
@@ -143,19 +177,18 @@ body {
     margin: 0;
     line-height: 1.3;
 }
+
 .skin-desc {
     font-size: .83rem;
-    color: #6b7280;
+    color: var(--secondary);
     line-height: 1.55;
     flex: 1;
     margin: 0;
 }
 
-/* ================================
-   TLAČIDLÁ – MODERNÝ GRADIENT
-   ================================ */
-
-.btn {
+/* TLAČIDLÁ */
+.skin-card .btn,
+.auth-container .btn {
     display: block;
     width: 100%;
     background: linear-gradient(135deg, var(--green), var(--green-h));
@@ -171,30 +204,33 @@ body {
     margin-top: .5rem;
     transition: transform .2s, box-shadow .2s;
 }
-.btn:hover { 
+
+.skin-card .btn:hover,
+.auth-container .btn:hover {
+    color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,.15);
 }
 
 .disabled {
-  background: #0070fc !important;
-  color: #fff !important;
-  cursor: not-allowed;
-  pointer-events: none;
+    background: #0070fc !important;
+    color: #fff !important;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
-/* ================================
-   NADPISY
-   ================================ */
-
+/* NADPISY */
 .col-12 h1,
 .col-12 h2 {
     margin: 25px 0 10px;
     font-weight: 700;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
+}
 
-
+/* STRIEDANIE OBRÁZKOV KABÍN */
 .cab751-img,
 .cab740-img,
 .cab740659-img {
@@ -202,7 +238,7 @@ body {
     width: 100%;
     height: 200px;
     overflow: hidden;
-    background: #eee;
+    background: var(--card-img-bg);
 }
 
 .cab751-img img,
@@ -255,14 +291,13 @@ body {
     100% { opacity: 0; }
 }
 
+/* VEĽKÝ INFORMAČNÝ TEXT */
 .info-big {
     width: 100%;
-    white-space: nowrap;
     text-align: center;
-    font-size: 2.4rem;
     font-size: clamp(1.5rem, 4vw, 2.4rem);
     font-weight: 900;
-    color: #9aa0ac;
+    color: var(--secondary);
     margin-top: 30px;
     letter-spacing: 1px;
     white-space: normal;
@@ -270,11 +305,14 @@ body {
     padding: 0 10px;
 }
 
+/* PRIHLASOVACÍ FORMULÁR */
 .auth-container {
     max-width: 450px;
     margin: 60px auto;
     padding: 30px;
-    background: #fff;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,.10);
 }
@@ -283,11 +321,19 @@ body {
     text-align: center;
     margin-bottom: 25px;
     font-size: 28px;
+    color: var(--text);
 }
 
 .auth-container .form-control {
     padding: 12px;
     margin-bottom: 16px;
+    background: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--border);
+}
+
+.auth-container .form-control::placeholder {
+    color: var(--secondary);
 }
 
 .auth-container .btn {
@@ -299,8 +345,7 @@ body {
     overflow-wrap: anywhere;
 }
 
-
-/* Indikátor prihlásenia priamo v navbare */
+/* INDIKÁTOR PRIHLÁSENIA */
 .auth-indicator {
     display: inline-flex;
     align-items: center;
@@ -310,8 +355,7 @@ body {
     padding: 5px 9px;
     vertical-align: middle;
     white-space: nowrap;
-
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255,255,255,.95);
     color: #222;
     border: 1px solid #e5e7eb;
     border-radius: 20px;
@@ -349,16 +393,136 @@ body {
     cursor: pointer;
 }
 
-.auth-logout:hover {
-    color: #dc2626;
+.auth-logout:hover { color: #dc2626; }
+.auth-logout:disabled { opacity: .6; cursor: wait; }
+
+.navbar .auth-indicator {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    margin: 0;
+    z-index: 10001;
 }
 
-.auth-logout:disabled {
-    opacity: 0.6;
-    cursor: wait;
+.navbar .auth-status-nav-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
-/* Na úzkych displejoch nech sa stav zmestí do navigácie */
+/* PREPÍNAČ DEŇ / NOC – ŠTÝL OPENRAILS CZ/SK */
+.tema-prepinac {
+    width: 66px;
+    height: 36px;
+    min-width: 66px;
+    min-height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #dce5ef;
+    transition: background .3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tema-prepinac__stopa {
+    position: relative;
+    display: block;
+    width: 66px;
+    height: 36px;
+    border-radius: 30px;
+}
+
+.tema-prepinac__gulicka {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    transition: transform .3s ease;
+    z-index: 2;
+}
+
+.tema-prepinac__ikona {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.tema-prepinac__ikona--den {
+    right: 8px;
+    color: #d99a00;
+}
+
+.tema-prepinac__ikona--noc {
+    left: 8px;
+    color: #a9b8d5;
+}
+
+/* NOČNÝ REŽIM PREPÍNAČA */
+html[data-theme="dark"] .tema-prepinac {
+    background: #34445f;
+}
+
+html[data-theme="dark"] .tema-prepinac__gulicka {
+    transform: translateX(30px);
+}
+
+/* EFEKT PRI NÁJAZDE */
+.tema-prepinac:hover {
+    filter: brightness(.95);
+}
+
+.tema-prepinac:focus-visible {
+    outline: 3px solid #3498db;
+    outline-offset: 3px;
+}
+
+/* FORMULÁRE – ZJEDNOTENIE FARIEB */
+input,
+textarea,
+select {
+    color: var(--input-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--secondary);
+}
+
+/* BOOTSTRAP TEXTY */
+.text-muted {
+    color: var(--secondary) !important;
+}
+
+/* PRECHODY PRI ZMENE TÉMY */
+.skin-card,
+.auth-container,
+.review-form,
+.review-entry,
+.review-admin-reply {
+    transition: background-color .25s ease, color .25s ease,
+                border-color .25s ease, box-shadow .25s ease;
+}
+
+/* MOBIL */
 @media (max-width: 600px) {
     .auth-indicator {
         margin-left: 4px;
@@ -371,36 +535,7 @@ body {
         margin-left: 1px;
         padding-left: 5px;
     }
-}
 
-/* Indikátor prihlásenia úplne vpravo v navbare */
-.navbar {
-    position: relative;
-}
-
-.navbar .auth-indicator {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    margin: 0;
-    z-index: 10001;
-}
-
-/* Aby sa indikátor nezalomil pod text */
-.navbar .auth-status-nav-item {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-}
-
-/* Mobil */
-@media (max-width: 600px) {
     .navbar .auth-indicator {
         right: 8px;
         font-size: 11px;
@@ -408,290 +543,31 @@ body {
     }
 }
 
-```css
-/* =========================================
-   HODNOTENIA A KOMENTÁRE – GLASS DESIGN
-   ========================================= */
-
-.review-area {
-    margin-top: 18px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(128, 128, 128, 0.18);
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    color: var(--text, #1a1f29);
+/* NOČNÝ REŽIM – DOPLNKOVÉ OPRAVY */
+html[data-theme="dark"] .skin-card {
+    box-shadow: 0 4px 18px rgba(0,0,0,.18);
 }
 
-/* =========================================
-   PRIEMERNÉ HODNOTENIE
-   ========================================= */
-
-.review-summary {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-bottom: 13px;
-    font-size: 13px;
+html[data-theme="dark"] .skin-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 
-.review-summary strong {
-    font-weight: 800;
-    color: var(--text, #1a1f29);
+html[data-theme="dark"] .auth-container {
+    box-shadow: 0 4px 20px rgba(0,0,0,.28);
 }
 
-.review-summary span {
-    color: #7b8492;
-    font-size: 12px;
+html[data-theme="dark"] .form-control {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--border);
 }
 
-/* =========================================
-   HVIEZDIČKY
-   ========================================= */
-
-.review-stars {
-    display: inline-flex;
-    align-items: center;
-    color: #f2b84b;
-    font-size: 16px;
-    letter-spacing: 2px;
-    white-space: nowrap;
-    text-shadow: 0 1px 2px rgba(242, 184, 75, 0.15);
+html[data-theme="dark"] .form-control:focus {
+    background-color: var(--input-bg);
+    color: var(--input-text);
 }
 
-.review-stars-empty {
-    color: #d5d9e1;
+html[data-theme="dark"] .form-control:disabled {
+    background-color: #303b4d;
+    color: var(--secondary);
 }
-
-/* =========================================
-   FORMULÁR NA PRIDÁVANIE HODNOTENIA
-   ========================================= */
-
-.review-form {
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-    margin-top: 13px;
-    margin-bottom: 17px;
-    padding: 13px;
-    background: rgba(255, 255, 255, 0.58);
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
-}
-
-/* Popisy polí */
-
-.review-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 800;
-    color: #424b5a;
-}
-
-/* Výber hviezdičiek a textové pole */
-
-.review-form select,
-.review-form textarea {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 9px 11px;
-    border: 1px solid rgba(150, 160, 175, 0.35);
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #303846;
-    font-family: 'Nunito', sans-serif;
-    font-size: 13px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-/* Efekt pri kliknutí do polí */
-
-.review-form select:focus,
-.review-form textarea:focus {
-    border-color: var(--green, #2ecc71);
-    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12);
-}
-
-.review-form textarea {
-    min-height: 75px;
-    resize: vertical;
-    line-height: 1.5;
-}
-
-/* =========================================
-   TLAČIDLO ODOSLAŤ
-   ========================================= */
-
-.review-submit {
-    align-self: flex-start;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 9px;
-    background: linear-gradient(
-        135deg,
-        var(--green, #2ecc71),
-        var(--green-h, #27ae60)
-    );
-    color: #ffffff;
-    font-family: 'Nunito', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-}
-
-.review-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 13px rgba(39, 174, 96, 0.25);
-}
-
-.review-submit:active {
-    transform: translateY(0);
-}
-
-.review-submit:disabled {
-    opacity: 0.55;
-    cursor: wait;
-    transform: none;
-    box-shadow: none;
-}
-
-/* =========================================
-   SPRÁVY A PRIHLÁSENIE
-   ========================================= */
-
-.review-message {
-    margin: 0;
-    color: #21834b;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.review-error {
-    padding: 9px 11px;
-    border-radius: 8px;
-    background: rgba(239, 68, 68, 0.08);
-    color: #b42332;
-    font-size: 12px;
-}
-
-.review-login-note,
-.review-empty {
-    margin: 9px 0;
-    color: #7b8492;
-    font-size: 12px;
-}
-
-.review-login-note a {
-    color: #21965b;
-    font-weight: 800;
-    text-decoration: none;
-}
-
-.review-login-note a:hover {
-    text-decoration: underline;
-}
-
-/* =========================================
-   ZOZNAM KOMENTÁROV
-   ========================================= */
-
-.review-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.review-entry {
-    padding: 11px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.48);
-}
-
-/* Dátum a hviezdičky */
-
-.review-entry-top {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 7px;
-}
-
-.review-entry time {
-    color: #89919e;
-    font-size: 11px;
-}
-
-/* Text komentára */
-
-.review-comment {
-    margin: 8px 0 0;
-    color: #454e5c;
-    font-size: 12px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-/* =========================================
-   ODPOVEĎ ADMINISTRÁTORA
-   ========================================= */
-
-.review-admin-reply {
-    margin-top: 10px;
-    padding: 10px 12px;
-    border-left: 3px solid var(--green, #2ecc71);
-    border-radius: 0 9px 9px 0;
-    background: rgba(46, 204, 113, 0.08);
-}
-
-.review-admin-reply strong {
-    color: #21834b;
-    font-size: 11px;
-    font-weight: 900;
-}
-
-.review-admin-reply p {
-    margin: 5px 0 0;
-    color: #45534b;
-    font-size: 12px;
-    line-height: 1.5;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-
-/* =========================================
-   MOBILNÉ ZOBRAZENIE
-   ========================================= */
-
-@media (max-width: 600px) {
-    .review-area {
-        margin-top: 14px;
-        padding-top: 12px;
-    }
-
-    .review-form {
-        padding: 10px;
-    }
-
-    .review-entry {
-        padding: 9px;
-    }
-
-    .review-stars {
-        font-size: 15px;
-    }
-
-    .review-submit {
-        width: 100%;
-        text-align: center;
-    }
-}
-```
