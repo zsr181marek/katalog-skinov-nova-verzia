@@ -171,7 +171,7 @@
           throw new Error("Prihlásenie vypršalo. Prihláste sa znova.");
         }
 
-        const { error: saveError } = await supabase.functions.invoke("submit-review", {
+        const { error: saveError } = await supabase.functions.invoke("clever-handler", {
           body: {
             item_key: key,
             item_name: name,
