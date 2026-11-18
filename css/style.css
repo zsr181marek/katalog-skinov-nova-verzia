@@ -1,31 +1,42 @@
+/* =========================================================
+KATALÓG SKINOV OPEN RAILS
+Kompletný CSS – denný a nočný režim
+========================================================= */
+
+/* =========================================================
+1. ZÁKLADNÉ PREMENNÉ – DENNÝ REŽIM
+========================================================= */
+
 :root {
     color-scheme: light;
-
     --bg: #eef1f7;
-    --surface: rgba(255,255,255,0.85);
-    --border: rgba(255,255,255,0.45);
+    --surface: rgba(255, 255, 255, 0.85);
+    --border: rgba(255, 255, 255, 0.45);
     --text: #1a1f29;
     --secondary: #6b7280;
     --card-img-bg: #e9eaec;
-    --form-bg: rgba(255,255,255,0.58);
+    --form-bg: rgba(255, 255, 255, 0.58);
     --input-bg: #ffffff;
     --input-text: #303846;
     --navbar-bg: #212529;
-
     --green: #2ecc71;
     --green-h: #27ae60;
     --blue-neon: #4dabff;
     --purple-neon: #b37cff;
     --orange-neon: #ffb36b;
     --yellow-neon: #ffe66b;
-
     --radius: 14px;
+    --carousel-bg: #e8ebef;
+    --carousel-border: #dce1e8;
+    --footer-bg: #171d23;
 }
 
-/* PREMENNÉ – NOČNÝ REŽIM */
+/* =========================================================
+2. PREMENNÉ – NOČNÝ REŽIM
+========================================================= */
+
 html[data-theme="dark"] {
     color-scheme: dark;
-
     --bg: #151a23;
     --surface: #202938;
     --border: #343e4e;
@@ -36,15 +47,20 @@ html[data-theme="dark"] {
     --input-bg: #1b2431;
     --input-text: #f1f3f5;
     --navbar-bg: #111820;
+    --carousel-bg: #111722;
+    --carousel-border: #30394a;
+    --footer-bg: #111820;
 }
 
-/* ZÁKLAD STRÁNKY */
-html,
-body {
-    margin: 0 !important;
-    padding: 0 !important;
+/* =========================================================
+3. ZÁKLAD STRÁNKY
+========================================================= */
+
+html, body {
+    margin: 0;
+    padding: 0;
     min-height: 100%;
-    overflow-x: hidden !important;
+    overflow-x: hidden;
     scroll-padding-top: 70px;
 }
 
@@ -53,65 +69,75 @@ html {
 }
 
 body {
-    padding-top: 70px !important;
-    padding-bottom: 3rem !important;
-    background: linear-gradient(135deg, var(--bg), var(--bg)) !important;
-    color: var(--text) !important;
+    padding-top: 70px;
+    padding-bottom: 48px;
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Nunito', sans-serif;
     transition: background-color .25s ease, color .25s ease;
 }
 
-/* NAVBAR – FIXED POZÍCIA */
-.navbar {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 70px !important;
-    min-height: 70px !important;
-    z-index: 9999 !important;
-    background-color: var(--navbar-bg) !important;
-}
-
-.navbar .navbar-toggler {
-    border-color: rgba(255,255,255,.35);
-}
-
-.navbar .navbar-toggler:focus {
-    box-shadow: 0 0 0 .2rem rgba(255,255,255,.15);
-}
-
-.navbar .nav-link {
-    color: rgba(255,255,255,.85) !important;
-}
-
-.navbar .nav-link:hover,
-.navbar .nav-link:focus {
-    color: #ffffff !important;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text);
 }
 
 .container {
-    scroll-margin-top: 80px !important;
+    scroll-margin-top: 80px;
 }
 
-/* KARTY */
+.text-muted {
+    color: var(--secondary);
+}
+
+/* =========================================================
+4. NAVIGÁCIA
+========================================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    min-height: 70px;
+    z-index: 9999;
+    background-color: var(--navbar-bg);
+}
+
+.navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, .35);
+}
+
+.navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 3.2px rgba(255, 255, 255, .15);
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, .85);
+}
+
+.navbar .nav-link:hover, .navbar .nav-link:focus {
+    color: #ffffff;
+}
+
+/* =========================================================
+5. KARTY
+========================================================= */
+
 .skin-card {
-    background: var(--surface);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    transition: background-color .25s, border-color .25s,
-                box-shadow .25s, transform .25s;
+    height: 100%;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: background-color .25s, border-color .25s, box-shadow .25s, transform .25s;
 }
 
 .skin-card:hover {
-    box-shadow: 0 10px 30px rgba(0,0,0,.12);
     transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
 }
 
 .skin-img-wrap {
@@ -133,100 +159,119 @@ body {
     transform: scale(1.06);
 }
 
-/* OZNAČENIA TYPU */
+/* =========================================================
+6. OZNAČENIA TYPU
+========================================================= */
+
 .type-badge {
     position: absolute;
-    top: .6rem;
-    left: .6rem;
+    top: 9.6px;
+    left: 9.6px;
     z-index: 2;
-    font-size: .68rem;
+    padding: .22em .75em;
+    font-size: 10.88px;
     font-weight: 700;
     letter-spacing: .04em;
     text-transform: uppercase;
-    padding: .22em .75em;
     border-radius: 99px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
 }
 
-.badge-skin { background: #dbeafe; color: #1d4ed8; }
-.badge-model { background: #ffe8c7; color: #b45309; }
-.badge-aktivity { background: #d6fcd9; color: #15803d; }
-.badge-cabin { background: #f0e1ff; color: #7c3aed; }
+.badge-skin {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
 
-/* TEXTY KARIET */
+.badge-model {
+    background: #ffe8c7;
+    color: #b45309;
+}
+
+.badge-aktivity {
+    background: #d6fcd9;
+    color: #15803d;
+}
+
+.badge-cabin {
+    background: #f0e1ff;
+    color: #7c3aed;
+}
+
+/* =========================================================
+7. TEXTY KARIET
+========================================================= */
+
 .skin-card .card-body {
-    padding: 1rem 1.1rem 1.1rem;
     display: flex;
     flex-direction: column;
-    gap: .45rem;
     flex: 1;
+    gap: 7.2px;
+    padding: 16px 17.6px 17.6px;
 }
 
 .skin-name {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
     margin: 0;
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 700;
     line-height: 1.3;
 }
 
 .skin-desc {
-    font-size: .83rem;
-    color: var(--secondary);
-    line-height: 1.55;
     flex: 1;
     margin: 0;
+    color: var(--secondary);
+    font-size: 13.28px;
+    line-height: 1.55;
 }
 
-/* TLAČIDLÁ */
-.skin-card .btn,
-.auth-container .btn {
+/* =========================================================
+8. TLAČIDLÁ
+========================================================= */
+
+.skin-card .btn, .auth-container .btn {
     display: block;
     width: 100%;
-    background: linear-gradient(135deg, var(--green), var(--green-h));
-    color: #fff;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: .85rem;
-    border: none;
-    border-radius: 10px;
+    margin-top: 8px;
     padding: .55em 0;
+    background: linear-gradient(135deg, var(--green), var(--green-h));
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13.6px;
+    font-weight: 700;
     text-align: center;
     text-decoration: none;
-    margin-top: .5rem;
+    border: none;
+    border-radius: 10px;
     transition: transform .2s, box-shadow .2s;
 }
 
-.skin-card .btn:hover,
-.auth-container .btn:hover {
-    color: #fff;
+.skin-card .btn:hover, .auth-container .btn:hover {
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,.15);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
 }
 
 .disabled {
-    background: #0070fc !important;
-    color: #fff !important;
+    background: #0070fc;
+    color: #ffffff;
     cursor: not-allowed;
     pointer-events: none;
 }
 
-/* NADPISY */
-.col-12 h1,
-.col-12 h2 {
+/* =========================================================
+9. NADPISY
+========================================================= */
+
+.col-12 h1, .col-12 h2 {
     margin: 25px 0 10px;
     font-weight: 700;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text);
-}
+/* =========================================================
+10. STRIEDANIE OBRÁZKOV KABÍN
+========================================================= */
 
-/* STRIEDANIE OBRÁZKOV KABÍN */
-.cab751-img,
-.cab740-img,
-.cab740659-img {
+.cab751-img, .cab740-img, .cab740659-img {
     position: relative;
     width: 100%;
     height: 200px;
@@ -234,9 +279,7 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--card-img-bg);
 }
 
-.cab751-img img,
-.cab740-img img,
-.cab740659-img img {
+.cab751-img img, .cab740-img img, .cab740659-img img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -249,56 +292,80 @@ h1, h2, h3, h4, h5, h6 {
     animation-timing-function: linear;
 }
 
-.cab751-img img:nth-child(1),
-.cab740-img img:nth-child(1),
-.cab740659-img img:nth-child(1) {
+.cab751-img img:nth-child(1), .cab740-img img:nth-child(1), .cab740659-img img:nth-child(1) {
     animation-name: show1;
 }
 
-.cab751-img img:nth-child(2),
-.cab740-img img:nth-child(2),
-.cab740659-img img:nth-child(2) {
+.cab751-img img:nth-child(2), .cab740-img img:nth-child(2), .cab740659-img img:nth-child(2) {
     animation-name: show2;
 }
 
-.cab751-img img:nth-child(3),
-.cab740-img img:nth-child(3),
-.cab740659-img img:nth-child(3) {
+.cab751-img img:nth-child(3), .cab740-img img:nth-child(3), .cab740659-img img:nth-child(3) {
     animation-name: show3;
 }
 
 @keyframes show1 {
-    0%, 30% { opacity: 1; }
-    33.33%, 100% { opacity: 0; }
+    0%, 30% {
+        opacity: 1;
+    }
+
+    33.33%, 100% {
+        opacity: 0;
+    }
+
 }
 
 @keyframes show2 {
-    0%, 30% { opacity: 0; }
-    33.33%, 63.33% { opacity: 1; }
-    66.66%, 100% { opacity: 0; }
+    0%, 30% {
+        opacity: 0;
+    }
+
+    33.33%, 63.33% {
+        opacity: 1;
+    }
+
+    66.66%, 100% {
+        opacity: 0;
+    }
+
 }
 
 @keyframes show3 {
-    0%, 63.33% { opacity: 0; }
-    66.66%, 96.66% { opacity: 1; }
-    100% { opacity: 0; }
+    0%, 63.33% {
+        opacity: 0;
+    }
+
+    66.66%, 96.66% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
 }
 
-/* VEĽKÝ INFORMAČNÝ TEXT */
+/* =========================================================
+11. VEĽKÝ INFORMAČNÝ TEXT
+========================================================= */
+
 .info-big {
     width: 100%;
-    text-align: center;
-    font-size: clamp(1.5rem, 4vw, 2.4rem);
-    font-weight: 900;
-    color: var(--secondary);
     margin-top: 30px;
-    letter-spacing: 1px;
-    white-space: normal;
-    line-height: 1.3;
     padding: 0 10px;
+    color: var(--secondary);
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    text-align: center;
+    white-space: normal;
 }
 
-/* PRIHLASOVACÍ FORMULÁR */
+/* =========================================================
+12. PRIHLASOVACÍ FORMULÁR
+========================================================= */
+
 .auth-container {
     max-width: 450px;
     margin: 60px auto;
@@ -307,19 +374,19 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.10);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .10);
 }
 
 .auth-container h1 {
-    text-align: center;
     margin-bottom: 25px;
-    font-size: 28px;
     color: var(--text);
+    font-size: 28px;
+    text-align: center;
 }
 
 .auth-container .form-control {
-    padding: 12px;
     margin-bottom: 16px;
+    padding: 12px;
     background: var(--input-bg);
     color: var(--input-text);
     border-color: var(--border);
@@ -334,11 +401,42 @@ h1, h2, h3, h4, h5, h6 {
     padding: 12px;
 }
 
-#message {
+\#message {
     overflow-wrap: anywhere;
 }
 
-/* INDIKÁTOR PRIHLÁSENIA */
+/* =========================================================
+13. VŠEOBECNÉ FORMULÁRE
+========================================================= */
+
+input, textarea, select {
+    color: var(--input-text);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--secondary);
+}
+
+html[data-theme="dark"] .form-control {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--border);
+}
+
+html[data-theme="dark"] .form-control:focus {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+}
+
+html[data-theme="dark"] .form-control:disabled {
+    background-color: #303b4d;
+    color: var(--secondary);
+}
+
+/* =========================================================
+14. INDIKÁTOR PRIHLÁSENIA
+========================================================= */
+
 .auth-indicator {
     display: inline-flex;
     align-items: center;
@@ -348,8 +446,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px 9px;
     vertical-align: middle;
     white-space: nowrap;
-    background: rgba(255,255,255,.95);
-    color: #222;
+    background: rgba(255, 255, 255, .95);
+    color: #222222;
     border: 1px solid #e5e7eb;
     border-radius: 20px;
     font-family: "Nunito", sans-serif;
@@ -376,29 +474,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .auth-logout {
-    border: 0;
-    border-left: 1px solid #e5e7eb;
     margin-left: 3px;
     padding: 0 0 0 8px;
     background: transparent;
-    color: #555;
+    color: #555555;
+    border: 0;
+    border-left: 1px solid #e5e7eb;
     font: inherit;
     cursor: pointer;
 }
 
-.auth-logout:hover { color: #dc2626; }
-.auth-logout:disabled { opacity: .6; cursor: wait; }
+.auth-logout:hover {
+    color: #dc2626;
+}
+
+.auth-logout:disabled {
+    opacity: .6;
+    cursor: wait;
+}
 
 .navbar .auth-indicator {
     position: absolute;
-    right: 15px;
     top: 50%;
+    right: 15px;
     transform: translateY(-50%);
     display: inline-flex;
     align-items: center;
     flex-wrap: nowrap;
-    white-space: nowrap;
     margin: 0;
+    white-space: nowrap;
     z-index: 10001;
 }
 
@@ -408,22 +512,25 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: nowrap;
 }
 
-/* PREPÍNAČ DEŇ / NOC – ŠTÝL OPENRAILS CZ/SK */
+/* =========================================================
+15. PREPÍNAČ DENNÉHO A NOČNÉHO REŽIMU
+========================================================= */
+
 .tema-prepinac {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     width: 66px;
     height: 36px;
     min-width: 66px;
     min-height: 36px;
     padding: 0;
+    background: #dce5ef;
     border: 0;
     border-radius: 30px;
     cursor: pointer;
-    background: #dce5ef;
     transition: background .3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
 }
 
 .tema-prepinac__stopa {
@@ -440,9 +547,9 @@ h1, h2, h3, h4, h5, h6 {
     left: 4px;
     width: 28px;
     height: 28px;
-    border-radius: 50%;
     background: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
     transition: transform .3s ease;
     z-index: 2;
 }
@@ -451,11 +558,11 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 16px;
+    height: 16px;
     z-index: 1;
 }
 
@@ -469,7 +576,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #a9b8d5;
 }
 
-/* NOČNÝ REŽIM PREPÍNAČA */
 html[data-theme="dark"] .tema-prepinac {
     background: #34445f;
 }
@@ -478,49 +584,623 @@ html[data-theme="dark"] .tema-prepinac__gulicka {
     transform: translateX(30px);
 }
 
-/* EFEKT PRI NÁJAZDE */
 .tema-prepinac:hover {
     filter: brightness(.95);
 }
 
-.tema-prepinac:focus-visible {
+.tema-prepinac:focus {
     outline: 3px solid #3498db;
     outline-offset: 3px;
 }
 
-/* FORMULÁRE – ZJEDNOTENIE FARIEB */
-input,
-textarea,
-select {
-    color: var(--input-text);
+/* =========================================================
+16. PRECHODY PRI ZMENE TÉMY
+========================================================= */
+
+.skin-card, .auth-container, .review-form, .review-entry, .review-admin-reply {
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
-input::placeholder,
-textarea::placeholder {
+html[data-theme="dark"] .skin-card {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .18);
+}
+
+html[data-theme="dark"] .skin-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+html[data-theme="dark"] .auth-container {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .28);
+}
+
+/* =========================================================
+17. NAJNOVŠIE PRÍSPEVKY – NADPIS A ODSTUPY
+========================================================= */
+
+.homepage-new {
+    margin-top: 35px;
+    margin-bottom: 55px;
+}
+
+.homepage-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    padding: 0 2px;
+}
+
+.homepage-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: .3px;
+    line-height: 1.3;
+}
+
+.homepage-label::before {
+    content: "";
+    display: block;
+    flex-shrink: 0;
+    width: 5px;
+    height: 34px;
+    background: linear-gradient(180deg, var(--green), var(--green-h));
+    border-radius: 5px;
+}
+
+.homepage-label::after {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 3px;
+    margin-left: 2px;
+    background: var(--green);
+    border-radius: 5px;
+    opacity: .75;
+}
+
+/* =========================================================
+18. CAROUSEL – NAJNOVŠIE PRÍSPEVKY
+========================================================= */
+
+.latest-carousel {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--carousel-border);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .09);
+    transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+/* Celý jeden príspevok */
+
+.latest-slide {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-height: 440px;
+    background: var(--surface);
+}
+
+/* Ľavá časť – fotografia */
+
+.latest-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 58%;
+    min-width: 0;
+    min-height: 440px;
+    padding: 15px;
+    background: var(--carousel-bg);
+}
+
+.latest-image img {
+    display: block;
+    width: 100%;
+    height: 410px;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Pravá časť – informácie o skine */
+
+.latest-info {
+    display: flex;
+    flex: 1 1 42%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 0;
+    padding: 38px 38px 48px;
+    background: var(--surface);
+    color: var(--text);
+}
+
+/* Typ skinu */
+
+.latest-info .type-badge {
+    position: static;
+    display: inline-block;
+    margin: 0 0 13px;
+    padding: 6px 12px;
+    font-size: 11.2px;
+}
+
+/* Dátum */
+
+.latest-info .latest-date {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--secondary);
+    font-size: 13.12px;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+/* Názov skinu */
+
+.latest-info h3 {
+    margin: 0 0 15px;
+    color: var(--text);
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+/* Popis */
+
+.latest-info p {
+    margin: 0 0 24px;
+    color: var(--secondary);
+    font-size: 15.36px;
+    line-height: 1.7;
+}
+
+/* V prípade samostatného dátumu v inom elemente */
+
+.latest-info small {
     color: var(--secondary);
 }
 
-/* BOOTSTRAP TEXTY */
-.text-muted {
-    color: var(--secondary) !important;
+/* =========================================================
+19. DOWNLOAD BUTTON V CAROUSELI
+========================================================= */
+
+.latest-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 45px;
+    margin-top: 3px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--green), var(--green-h));
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14.72px;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 5px 14px rgba(46, 204, 113, .18);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
-/* PRECHODY PRI ZMENE TÉMY */
-.skin-card,
-.auth-container,
-.review-form,
-.review-entry,
-.review-admin-reply {
-    transition: background-color .25s ease, color .25s ease,
-                border-color .25s ease, box-shadow .25s ease;
+.latest-button:hover {
+    background: linear-gradient(135deg, var(--green-h), #219653);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, .3);
 }
 
-/* MOBIL */
+.latest-button:active {
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+20. OVLÁDANIE CAROUSELU
+========================================================= */
+
+.latest-carousel .carousel-control-prev, .latest-carousel .carousel-control-next {
+    width: 7%;
+    opacity: .8;
+    z-index: 6;
+    transition: opacity .2s ease;
+}
+
+.latest-carousel .carousel-control-prev:hover, .latest-carousel .carousel-control-next:hover {
+    opacity: 1;
+}
+
+.latest-carousel .carousel-control-prev-icon, .latest-carousel .carousel-control-next-icon {
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .8));
+}
+
+/* Indikátory */
+
+.latest-carousel .carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    z-index: 7;
+}
+
+.latest-carousel .carousel-indicators button {
+    width: 26px;
+    height: 4px;
+    margin: 0 4px;
+    background-color: var(--secondary);
+    border: 0;
+    border-radius: 5px;
+    opacity: .5;
+    transition: opacity .2s ease, background-color .2s ease, width .2s ease;
+}
+
+.latest-carousel .carousel-indicators button.active {
+    width: 36px;
+    background-color: var(--green);
+    opacity: 1;
+}
+
+/* =========================================================
+21. CAROUSEL – DENNÝ REŽIM
+========================================================= */
+
+html[data-theme="light"] .latest-carousel {
+    background: #ffffff;
+    border-color: #dce1e8;
+}
+
+html[data-theme="light"] .latest-slide, html[data-theme="light"] .latest-info {
+    background: #ffffff;
+}
+
+html[data-theme="light"] .latest-image {
+    background: #e8ebef;
+}
+
+/* =========================================================
+22. CAROUSEL – NOČNÝ REŽIM
+========================================================= */
+
+html[data-theme="dark"] .latest-carousel {
+    background: #171d29;
+    border-color: #30394a;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
+}
+
+html[data-theme="dark"] .latest-slide, html[data-theme="dark"] .latest-info {
+    background: #202938;
+}
+
+html[data-theme="dark"] .latest-image {
+    background: #111722;
+}
+
+/* =========================================================
+23. RESPONZÍVNY CAROUSEL
+========================================================= */
+
+@media (max-width: 900px) {
+    .homepage-new {
+        margin-top: 28px;
+        margin-bottom: 45px;
+    }
+
+    .latest-slide {
+        flex-direction: column;
+    }
+
+    .latest-image {
+        flex: none;
+        width: 100%;
+        min-height: 0;
+        padding: 12px;
+    }
+
+    .latest-image img {
+        height: 340px;
+    }
+
+    .latest-info {
+        flex: none;
+        width: 100%;
+        padding: 28px 30px 48px;
+    }
+
+    .latest-info h3 {
+        font-size: 27.2px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .homepage-new {
+        margin-top: 22px;
+        margin-bottom: 35px;
+    }
+
+    .homepage-heading {
+        margin-bottom: 16px;
+    }
+
+    .homepage-label {
+        gap: 9px;
+        font-size: 20.8px;
+    }
+
+    .homepage-label::before {
+        height: 27px;
+    }
+
+    .homepage-label::after {
+        width: 25px;
+    }
+
+    .latest-carousel {
+        border-radius: 13px;
+    }
+
+    .latest-image {
+        padding: 8px;
+    }
+
+    .latest-image img {
+        height: 230px;
+    }
+
+    .latest-info {
+        padding: 22px 20px 43px;
+    }
+
+    .latest-info h3 {
+        font-size: 22.4px;
+        margin-bottom: 11px;
+    }
+
+    .latest-info p {
+        margin-bottom: 18px;
+        font-size: 14.08px;
+        line-height: 1.6;
+    }
+
+    .latest-info .latest-date {
+        font-size: 12.32px;
+    }
+
+    .latest-button {
+        width: 100%;
+        min-height: 43px;
+        padding: 11px 16px;
+    }
+
+    .latest-carousel .carousel-control-prev, .latest-carousel .carousel-control-next {
+        width: 12%;
+    }
+
+    .latest-carousel .carousel-indicators {
+        bottom: 8px;
+    }
+
+    .latest-carousel .carousel-indicators button {
+        width: 20px;
+    }
+
+    .latest-carousel .carousel-indicators button.active {
+        width: 30px;
+    }
+
+}
+
+/* =========================================================
+24. RESPONZÍVNA NAVIGÁCIA
+Menu sa zbalí pri šírke 1349 px a menej.
+========================================================= */
+
+@media (max-width: 1349.98px) {
+    .navbar .navbar-toggler {
+        display: block;
+        margin-left: auto;
+    }
+
+    .navbar #offcanvasNavbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: auto;
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        max-width: 85vw;
+        height: 100vh;
+        max-height: 100vh;
+        margin: 0;
+        padding: 0;
+        visibility: hidden;
+        transform: translateX(100%);
+        background-color: #212529;
+        border: 0;
+        z-index: 1055;
+        overflow-y: auto;
+        transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+    }
+
+    .navbar #offcanvasNavbar.show, .navbar #offcanvasNavbar.showing {
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .navbar #offcanvasNavbar.hiding {
+        visibility: hidden;
+        transform: translateX(100%);
+    }
+
+    .navbar #offcanvasNavbar .offcanvas-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .navbar #offcanvasNavbar .offcanvas-body {
+        display: block;
+        flex-grow: 1;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    .navbar #offcanvasNavbar .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    .navbar #offcanvasNavbar .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .navbar #offcanvasNavbar .nav-link {
+        width: 100%;
+        white-space: normal;
+    }
+
+    /* Indikátor prihlásenia */
+
+    .navbar .auth-indicator {
+        position: static;
+        top: auto;
+        right: auto;
+        transform: none;
+        display: inline-flex;
+        width: fit-content;
+        max-width: 100%;
+        margin: 8px 0 0 0;
+        z-index: auto;
+    }
+
+    .navbar .auth-status-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .navbar #offcanvasNavbar .nav-item:has(.auth-indicator) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+/* =========================================================
+25. NAVIGÁCIA NA ŠIROKÝCH OBRAZOVKÁCH
+========================================================= */
+
+@media (min-width: 1350px) {
+    .navbar .navbar-toggler {
+        display: none;
+    }
+
+    .navbar #offcanvasNavbar {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        height: auto;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        padding: 0;
+        visibility: visible;
+        transform: none;
+        overflow: visible;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .navbar #offcanvasNavbar .offcanvas-header {
+        display: none;
+    }
+
+    .navbar #offcanvasNavbar .offcanvas-body {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        padding: 0;
+        overflow: visible;
+    }
+
+    .navbar #offcanvasNavbar .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0;
+    }
+
+    .navbar #offcanvasNavbar .nav-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+    }
+
+    .navbar #offcanvasNavbar .nav-link {
+        padding-left: 4.48px;
+        padding-right: 4.48px;
+        white-space: nowrap;
+    }
+
+    .navbar > .container {
+        max-width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* Indikátor prihlásenia zostáva vpravo */
+
+    .navbar .auth-indicator {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+
+    .navbar .auth-status-nav-item {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+    }
+
+}
+
+/* =========================================================
+26. MOBILNÉ ÚPRAVY INDIKÁTORA
+========================================================= */
+
 @media (max-width: 600px) {
     .auth-indicator {
+        gap: 5px;
         margin-left: 4px;
         padding: 4px 6px;
-        gap: 5px;
         font-size: 11px;
     }
 
@@ -531,36 +1211,288 @@ textarea::placeholder {
 
     .navbar .auth-indicator {
         right: 8px;
-        font-size: 11px;
         padding: 4px 6px;
+        font-size: 11px;
     }
+
 }
 
-/* NOČNÝ REŽIM – DOPLNKOVÉ OPRAVY */
-html[data-theme="dark"] .skin-card {
-    box-shadow: 0 4px 18px rgba(0,0,0,.18);
+/* =========================================================
+27. FOOTER
+========================================================= */
+
+.site-footer {
+    position: relative;
+    width: 100%;
+    margin-top: 70px;
+    padding: 55px 25px 0;
+    background: var(--footer-bg);
+    color: #ffffff;
+    border-top: 2px solid #2ecc71;
+    overflow: hidden;
+    transition: background-color .25s ease, border-color .25s ease;
 }
 
-html[data-theme="dark"] .skin-card:hover {
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+.site-footer::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 250px;
+    background: rgba(46, 204, 113, .06);
+    filter: blur(90px);
+    pointer-events: none;
 }
 
-html[data-theme="dark"] .auth-container {
-    box-shadow: 0 4px 20px rgba(0,0,0,.28);
+/* Kontajner footeru */
+
+.footer-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1.2fr;
+    gap: 65px;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding-bottom: 45px;
 }
 
-html[data-theme="dark"] .form-control {
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    border-color: var(--border);
+/* Značka a názov */
+
+.footer-brand {
+    max-width: 350px;
 }
 
-html[data-theme="dark"] .form-control:focus {
-    background-color: var(--input-bg);
-    color: var(--input-text);
+.footer-brand h3 {
+    margin: 0 0 13px;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 700;
 }
 
-html[data-theme="dark"] .form-control:disabled {
-    background-color: #303b4d;
-    color: var(--secondary);
+.footer-brand p {
+    margin: 0;
+    color: #9da8b2;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Sekcie footeru */
+
+.footer-section h4 {
+    margin: 5px 0 22px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.footer-section > p {
+    margin: 0;
+    color: #9da8b2;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Kontaktné odkazy */
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.footer-contact-link, .footer-contact-link:visited {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 13px;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 11px;
+    transition: all .25s ease;
+}
+
+.footer-contact-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(46, 204, 113, .45);
+    background: rgba(46, 204, 113, .07);
+}
+
+/* Ikony */
+
+.footer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    color: #ffffff;
+    font-size: 19px;
+}
+
+.email-icon {
+    background: #2ecc71;
+}
+
+.instagram-icon {
+    background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+/* Text kontaktu */
+
+.footer-contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.footer-contact-text strong {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.footer-contact-text small {
+    color: #929da7;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+/* Šípka */
+
+.footer-arrow {
+    margin-left: auto;
+    color: #2ecc71;
+    font-size: 16px;
+    transition: transform .2s;
+}
+
+.footer-contact-link:hover .footer-arrow {
+    transform: translate(3px, -3px);
+}
+
+/* Spodná lišta */
+
+.footer-bottom {
+    position: relative;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, .09);
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #87929c;
+    font-size: 13px;
+}
+
+/* =========================================================
+28. FOOTER – DENNÝ REŽIM
+========================================================= */
+
+html[data-theme="light"] .site-footer {
+    background: #ffffff;
+    color: #212529;
+    border-top-color: #2ecc71;
+}
+
+html[data-theme="light"] .site-footer::before {
+    background: rgba(46, 204, 113, .08);
+}
+
+html[data-theme="light"] .footer-brand h3, html[data-theme="light"] .footer-section h4 {
+    color: #212529;
+}
+
+html[data-theme="light"] .footer-brand p, html[data-theme="light"] .footer-section > p {
+    color: #626b73;
+}
+
+html[data-theme="light"] .footer-contact-link, html[data-theme="light"] .footer-contact-link:visited {
+    background: #f8f9fa;
+    border-color: #e5e8eb;
+}
+
+html[data-theme="light"] .footer-contact-link:hover {
+    background: #effaf3;
+    border-color: #2ecc71;
+}
+
+html[data-theme="light"] .footer-contact-text strong {
+    color: #212529;
+}
+
+html[data-theme="light"] .footer-contact-text small {
+    color: #737d86;
+}
+
+html[data-theme="light"] .footer-bottom {
+    border-top-color: rgba(0, 0, 0, .10);
+}
+
+html[data-theme="light"] .footer-bottom p {
+    color: #737d86;
+}
+
+/* =========================================================
+29. FOOTER – RESPONZIVITA
+========================================================= */
+
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+        max-width: 500px;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .site-footer {
+        margin-top: 45px;
+        padding: 40px 20px 0;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-bottom: 35px;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+    .footer-section h4 {
+        margin-bottom: 15px;
+    }
+
+    .footer-bottom p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+}
+
+/* =========================================================
+30. ZNÍŽENIE ANIMÁCIÍ PODĽA NASTAVENIA ZARIADENIA
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto;
+        animation-duration: .01ms;
+        animation-iteration-count: 1;
+        transition-duration: .01ms;
+    }
+
 }

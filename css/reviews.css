@@ -1,54 +1,68 @@
-/* =========================================================
-   HODNOTENIA A KOMENTÁRE – DENNÝ A NOČNÝ REŽIM
-   Samostatné od Bootstrapu a hlavného dizajnu katalógu.
-   ========================================================= */
+
+/* FARBY A HODNOTY */
+:root {
+    --review-text: var(--text, #1a1f29);
+    --review-secondary: var(--secondary, #777);
+    --review-border: var(--border, rgba(128, 128, 128, 0.25));
+    --review-form-bg: var(--form-bg, rgba(255, 255, 255, 0.58));
+    --review-input-bg: var(--input-bg, #ffffff);
+    --review-input-text: var(--input-text, #303846);
+    --review-green: var(--green, #2ecc71);
+    --review-green-dark: var(--green-h, #27ae60);
+    --review-star: #e6a400;
+    --review-star-empty: #c7c7c7;
+    --review-success: #277443;
+    --review-error: #b02a37;
+}
+
+/* HODNOTENIA A KOMENTÁRE */
 
 .review-area {
-    margin-top: 1rem;
-    padding-top: .85rem;
-    border-top: 1px solid var(--border, rgba(128,128,128,.25));
-    font-size: .92rem;
-    color: var(--text, #1a1f29);
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--review-border);
+    font-size: 15px;
+    color: var(--review-text);
 }
 
 .review-summary {
-    margin-bottom: .65rem;
-    color: var(--text, #1a1f29);
+    margin-bottom: 10px;
+    color: var(--review-text);
 }
 
 .review-summary strong {
-    color: var(--text, #1a1f29);
+    color: var(--review-text);
 }
 
 .review-summary span {
-    color: var(--secondary, #777);
+    color: var(--review-secondary);
 }
 
 .review-stars {
-    color: #e6a400;
+    color: var(--review-star);
     letter-spacing: 1px;
     white-space: nowrap;
 }
 
 .review-stars-empty {
-    color: #c7c7c7;
+    color: var(--review-star-empty);
 }
 
 .review-form {
     display: grid;
-    gap: .65rem;
-    margin: .75rem 0 1rem;
-    padding: .85rem;
-    border: 1px solid var(--border, rgba(128,128,128,.2));
-    border-radius: .65rem;
-    background: var(--form-bg, rgba(255,255,255,.58));
+    gap: 10px;
+    margin: 12px 0 16px;
+    padding: 14px;
+    border: 1px solid var(--review-border);
+    border-radius: 10px;
+    background: var(--review-form-bg);
 }
 
 .review-form label {
     display: grid;
-    gap: .3rem;
+    gap: 5px;
     font-weight: 600;
-    color: var(--text, #1a1f29);
+    color: var(--review-text);
 }
 
 .review-form select,
@@ -56,19 +70,19 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    padding: .55rem .65rem;
-    border: 1px solid var(--border, #c8cdd2);
-    border-radius: .45rem;
+    padding: 9px 10px;
+    border: 1px solid var(--review-border);
+    border-radius: 7px;
     font: inherit;
-    color: var(--input-text, #303846);
-    background: var(--input-bg, #fff);
+    color: var(--review-input-text);
+    background: var(--review-input-bg);
 }
 
 .review-form select:focus,
 .review-form textarea:focus {
     outline: none;
-    border-color: var(--green, #2ecc71);
-    box-shadow: 0 0 0 3px rgba(46,204,113,.12);
+    border-color: var(--review-green);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.12);
 }
 
 .review-form textarea {
@@ -79,11 +93,11 @@
 .review-submit {
     justify-self: start;
     border: 0;
-    border-radius: .45rem;
-    padding: .55rem .85rem;
+    border-radius: 7px;
+    padding: 9px 14px;
     cursor: pointer;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--green, #2ecc71), var(--green-h, #27ae60));
+    background: linear-gradient(135deg, var(--review-green), var(--review-green-dark));
     color: white;
 }
 
@@ -92,27 +106,27 @@
 }
 
 .review-submit:disabled {
-    opacity: .6;
+    opacity: 0.6;
     cursor: wait;
 }
 
 .review-message {
     margin: 0;
-    color: #277443;
+    color: var(--review-success);
 }
 
 .review-error {
-    color: #b02a37;
+    color: var(--review-error);
 }
 
 .review-login-note,
 .review-empty {
-    color: var(--secondary, #777);
-    margin: .5rem 0;
+    color: var(--review-secondary);
+    margin: 8px 0;
 }
 
 .review-login-note a {
-    color: var(--green-h, #27ae60);
+    color: var(--review-green-dark);
     font-weight: 700;
     text-decoration: none;
 }
@@ -123,98 +137,124 @@
 
 .review-list {
     display: grid;
-    gap: .65rem;
+    gap: 10px;
 }
 
 .review-entry {
-    border: 1px solid var(--border, rgba(128,128,128,.18));
-    border-radius: .55rem;
-    padding: .7rem;
-    background: var(--form-bg, rgba(128,128,128,.04));
+    border: 1px solid var(--review-border);
+    border-radius: 9px;
+    padding: 11px;
+    background: var(--review-form-bg);
 }
 
 .review-entry-top {
     display: flex;
     align-items: center;
-    gap: .6rem;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .review-entry time {
-    color: var(--secondary, #777);
-    font-size: .82rem;
+    color: var(--review-secondary);
+    font-size: 13px;
 }
 
 .review-comment {
-    margin: .4rem 0;
-    color: var(--text, #1a1f29);
+    margin: 6px 0;
+    color: var(--review-text);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 
 .review-admin-reply {
-    margin: .5rem 0 0;
-    padding: .6rem .75rem;
-    border-left: 3px solid var(--green, #2ecc71);
-    background: var(--form-bg, rgba(128,128,128,.08));
-    border-radius: 0 .4rem .4rem 0;
+    margin: 8px 0 0;
+    padding: 10px 12px;
+    border-left: 3px solid var(--review-green);
+    background: var(--review-form-bg);
+    border-radius: 0 7px 7px 0;
 }
 
 .review-admin-reply strong {
-    color: var(--green-h, #27ae60);
+    color: var(--review-green-dark);
 }
 
 .review-admin-reply p {
-    margin: .25rem 0 0;
-    color: var(--text, #1a1f29);
+    margin: 4px 0 0;
+    color: var(--review-text);
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 
+/* TLAČIDLO HODNOTENIA A KOMENTÁROV */
+
+.review-toggle {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(46, 204, 113, 0.35);
+    border-radius: 9px;
+    background: rgba(46, 204, 113, 0.10);
+    color: var(--review-text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.review-toggle:hover {
+    background: var(--review-green);
+    color: #ffffff;
+    border-color: var(--review-green);
+    transform: translateY(-1px);
+}
+
+.review-area[hidden] {
+    display: none;
+}
+
+.review-loading {
+    color: var(--review-secondary);
+    font-size: 14px;
+    text-align: center;
+    padding: 12px;
+}
+
+.review-retry {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--review-green);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 /* NOČNÝ REŽIM */
-html[data-theme="dark"] .review-area,
-html[data-theme="dark"] .review-summary,
-html[data-theme="dark"] .review-summary strong,
-html[data-theme="dark"] .review-form label,
-html[data-theme="dark"] .review-comment,
-html[data-theme="dark"] .review-admin-reply p {
-    color: var(--text);
-}
 
-html[data-theme="dark"] .review-form,
-html[data-theme="dark"] .review-entry,
-html[data-theme="dark"] .review-admin-reply {
-    background: var(--form-bg);
-    border-color: var(--border);
-}
-
-html[data-theme="dark"] .review-form select,
-html[data-theme="dark"] .review-form textarea {
-    background: var(--input-bg);
-    color: var(--input-text);
-    border-color: var(--border);
-}
-
-html[data-theme="dark"] .review-summary span,
-html[data-theme="dark"] .review-entry time,
-html[data-theme="dark"] .review-login-note,
-html[data-theme="dark"] .review-empty {
-    color: var(--secondary);
+html[data-theme="dark"] .review-toggle {
+    color: #f1f3f5;
+    background: rgba(46, 204, 113, 0.12);
+    border-color: rgba(46, 204, 113, 0.3);
 }
 
 /* MOBIL */
+
 @media (max-width: 600px) {
     .review-area {
-        margin-top: .85rem;
-        padding-top: .7rem;
+        margin-top: 14px;
+        padding-top: 11px;
     }
 
     .review-form {
-        padding: .65rem;
+        padding: 10px;
     }
 
     .review-entry {
-        padding: .6rem;
+        padding: 10px;
     }
 
     .review-submit {

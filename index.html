@@ -1,523 +1,481 @@
 <!DOCTYPE html>
 <html lang="sk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalóg skinov</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Katalóg skinov</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/reviews.css">
+    </head>
+    <body>
 
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/reviews.css">
-</head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<body>
-    
-  
-  <nav class="navbar navbar-expand-lg fixed-top bg-dark navbar-dark">
-    <div class="container">
+        <!-- NAVIGÁCIA -->
+        <nav class="navbar navbar-expand-lg fixed-top bg-dark navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title">Menu</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Zavrieť">
+                        </button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="index.html">DOMOV</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="motorove-rusne.html">MOTOROVÉ RUŠNE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="elektricke-rusne.html">ELEKTRICKÉ RUŠNE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="motorove-vozne.html">MOTOROVÉ VOZNE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="vozne.html">VOZNE</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="kabiny-zvuky.html">KABÍNY A ZVUKY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="aktivity.html">AKTIVITY</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mx-lg-2" href="prihlasenie.html">PRIHLÁSENIE</a>
+                            </li>
+                            <li class="nav-item d-flex align-items-center ms-lg-2 mt-2 mt-lg-0">
+                                <button type="button" id="themeToggle" class="tema-prepinac" role="switch" aria-checked="false" aria-label="Nočný režim" title="Deň / noc">
+                                    <span class="tema-prepinac__stopa" aria-hidden="true">
+                                        <span class="tema-prepinac__gulicka"></span>
+                                    <span class="tema-prepinac__ikona tema-prepinac__ikona--den">☀</span>
+                                    <span class="tema-prepinac__ikona tema-prepinac__ikona--noc">☾</span>
+                                    </span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="offcanvas offcanvas-end text-bg-dark"
-             tabindex="-1" id="offcanvasNavbar">
 
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title">Menu</h5>
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="offcanvas">
+        <!-- HLAVNÝ CAROUSEL -->
+        <section class="container homepage-new">
+            <div class="homepage-heading">
+                <div>
+                    <span class="homepage-label">NAJNOVŠIE PRÍSPEVKY</span>
+                    <h2>Novinky v katalógu</h2>
+                    <p>Najnovšie skiny, modely a kabiny pre Open Rails CZSK.</p>
+                </div>
+            </div>
+
+
+            <div id="latestCarousel" class="carousel slide latest-carousel" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="hover" data-bs-touch="true">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#latestCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Položka 1"></button>
+                    <button type="button" data-bs-target="#latestCarousel" data-bs-slide-to="1" aria-label="Položka 2"></button>
+                    <button type="button" data-bs-target="#latestCarousel" data-bs-slide-to="2" aria-label="Položka 3"></button>
+                    <button type="button" data-bs-target="#latestCarousel" data-bs-slide-to="3" aria-label="Položka 4"></button>
+                    <button type="button" data-bs-target="#latestCarousel" data-bs-slide-to="4" aria-label="Položka 5"></button>
+                </div>
+
+
+                <div class="carousel-inner">
+
+                    <!-- 5. ZSSK 813.014 -->
+                    <div class="carousel-item active">
+                        <div class="latest-slide">
+                            <div class="latest-image">
+                                <img src="img/813_014.jpg" alt="ZSSK 813.014">
+                            </div>
+                            <div class="latest-info">
+                                <div class="latest-meta">
+                                    <span class="type-badge badge-skin">Skin</span>
+                                    <span class="latest-date">18.11.2026</span>
+                                </div>
+                                <h3>ZSSK 813.016</h3>
+                                <p>Skin motorovej jednotky 813.014 a 913.014 pre OpenRails CZSK.</p>
+                                <a href="https://mega.nz/file/ICoXSSoL#9Vnhemzdehn-IcYmyZ3vNw2tzCuenvWA0d9T5CRFoao" class="latest-button" target="_blank" rel="noopener noreferrer"><i class="bi bi-download"></i>Stiahnuť skin</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- 1. ZSSK 162.008 -->
+
+                    <div class="carousel-item">
+                        <div class="latest-slide">
+                            <div class="latest-image">
+                                <img src="img/162_008.jpg" alt="ZSSK 162.008">
+                            </div>
+                            <div class="latest-info">
+                                <div class="latest-meta">
+                                    <span class="type-badge badge-skin">Skin</span>
+                                    <span class="latest-date">15.11.2026</span>
+                                </div>
+                                <h3>ZSSK 162.008</h3>
+                                <p>
+                                    Skin elektrického rušňa 162.008 pre OpenRails CZSK.
+                                </p>
+                                <a href="https://mega.nz/file/ULoQmT4Q#AmqFu6L_P2aixZEI_KIbUPiEZAi0ZD_NR-bUtpRIm9c" class="latest-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="bi bi-download"></i>
+                                    Stiahnuť skin
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 2. ZSSK 162.004 -->
+                    <div class="carousel-item">
+                        <div class="latest-slide">
+                            <div class="latest-image">
+                                <img src="img/162_004.jpg" alt="ZSSK 162.004">
+                            </div>
+                            <div class="latest-info">
+                                <div class="latest-meta">
+                                    <span class="type-badge badge-skin">Skin</span>
+                                    <span class="latest-date">15.11.2026</span>
+                                </div>
+                                <h3>ZSSK 162.004</h3>
+                                <p>
+                                    Skin elektrického rušňa 162.004 pre OpenRails CZSK.
+                                </p>
+                                <a href="https://mega.nz/file/pfZTATZa#YHfCXODnLLuW2d6QuEDZ9KKOupWcpePVUCGJTiOqyFo" class="latest-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="bi bi-download"></i>
+                                    Stiahnuť skin
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 3. JKS 740.659 -->
+                    <div class="carousel-item">
+                        <div class="latest-slide">
+                            <div class="latest-image">
+                                <img src="img/740_659.jpg" alt="JKS 740.659">
+                            </div>
+                            <div class="latest-info">
+                                <div class="latest-meta">
+                                    <span class="type-badge badge-model">Model</span>
+                                    <span class="latest-date">23.10.2026</span>
+                                </div>
+                                <h3>JKS 740.659</h3>
+                                <p>
+                                    Upravený pôvodný model 74x pre lokomotívu 740.659.
+                                </p>
+                                <a href="https://mega.nz/file/8SgijZBL#2bAUIjsMT9BWvCSEsaYEobjsDWns0qegIRPutLCm8sQ" class="latest-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="bi bi-download"></i>
+                                    Stiahnuť model
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 4. Kabína 740.659 -->
+                    <div class="carousel-item">
+                        <div class="latest-slide">
+                            <div class="latest-image">
+                                <img src="img/740659_z_cab1.png" alt="Kabína pre 740.659">
+                            </div>
+                            <div class="latest-info">
+                                <div class="latest-meta">
+                                    <span class="type-badge badge-cabin">Kabína</span>
+                                    <span class="latest-date">23.10.2026</span>
+                                </div>
+                                <h3>Kabína pre 740.659</h3>
+                                <p>
+                                    Upravená kabína pre lokomotívu 740.659.
+                                </p>
+                                <a href="https://mega.nz/file/JTJQzY4K#0o5ZoyCtzrLLisfs7fl15KSQwt40Ob3Cr_SAZeCQERM" class="latest-button" target="_blank" rel="noopener noreferrer">
+                                    <i class="bi bi-download"></i>
+                                    Stiahnuť kabínu
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#latestCarousel" data-bs-slide="prev" aria-label="Predchádzajúca položka">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#latestCarousel" data-bs-slide="next" aria-label="Nasledujúca položka">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>
+        </section>
 
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="index.html">DOMOV</a>
-                    </li>
+        <!-- ĎALŠÍCH 12 POLOŽIEK -->
+        <section class="container homepage-more">
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="motorove-rusne.html">MOTOROVÉ RUŠNE</a>
-                    </li>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="elektricke-rusne.html">ELEKTRICKÉ RUŠNE</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="motorove-vozne.html">MOTOROVÉ VOZNE</a>
-                    </li>
+                <!-- 6. ZSSKC 751.037 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_037.jpg" alt="ZSSKC 742.021" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>ZSSKC 751.037</h3>
+                            <p>Skin motorového rušňa 751.037 v dvoch variantoch pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/ICoXSSoL#9Vnhemzdehn-IcYmyZ3vNw2tzCuenvWA0d9T5CRFoao" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="vozne.html">VOZNE</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="kabiny-zvuky.html">KABÍNY A ZVUKY</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="aktivity.html">AKTIVITY</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="prihlasenie.html">PRIHLÁSENIE</a>
-                    </li>
+                <!-- 6. ZSSKC 742.021 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/742_021.jpg" alt="ZSSKC 742.021" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 742.021</p>
+                            <p class="skin-desc">Skin motorového rušňa 742.021 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/VaICRKJI#9RmJ1POKbsX_Daclvo2TJadLPZG007ftxsNyWsbt_es" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- PREPÍNAČ DENNÉHO A NOČNÉHO REŽIMU -->
-                    <li class="nav-item d-flex align-items-center ms-lg-2 mt-2 mt-lg-0">
-                    <button
-                        type="button"
-                        id="themeToggle"
-                        class="tema-prepinac"
-                        role="switch"
-                        aria-checked="false"
-                        aria-label="Nočný režim"
-                        title="Deň / noc">
 
-                        <span class="tema-prepinac__stopa" aria-hidden="true">
-                            <span class="tema-prepinac__gulicka"></span>
+                <!-- 7. ZSSKC 751.128 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_128.jpg" alt="ZSSKC 751.128" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 751.128</p>
+                            <p class="skin-desc">Skin motorového rušňa 751.128 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/QSBDVDwR#5IYgVUBLYBcCJTDDEUe12sehWcq5U9Nn86zzCkVa7YQ" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
 
-                            <span class="tema-prepinac__ikona tema-prepinac__ikona--den">
-                                ☀
+
+                <!-- 8. ZSSKC 752.041 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/752_041.jpg" alt="ZSSKC 752.041" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 752.041</p>
+                            <p class="skin-desc">Skin motorového rušňa 752.041 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/RPA0UTLB#670G4Iey4ywZ6FCgXuuoKTMwkCsLsnkqiGWS1eDYnJ8" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 9. ZSSKC 742.037 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/742_037.jpg" alt="ZSSKC 742.037" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 742.037</p>
+                            <p class="skin-desc">Skin motorového rušňa 742.037 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/YSwVDbCJ#G9ALg6j1iOnU4HRAvVI2S5aPp5YV9V6pA3K9yRBqwzs" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 10. AKTIVITA MN81271 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/aktivita_Mn81271.jpg" alt="Aktivita Mn81271" loading="lazy">
+                            <span class="type-badge badge-aktivity">Aktivita</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">Aktivita Mn81271</p>
+                            <p class="skin-desc">Aktivita pre 752.043, Mn 81271 z Prešova do Strážskeho.</p>
+                            <a href="https://mega.nz/file/ACYmzA7L#xjsMeuM5feDsxbsAaeh-ebPWQPhQFuw9HNNlYxDpDkI" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 11. ZSSKC 752.043 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/752_043.jpg" alt="ZSSKC 752.043" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 752.043</p>
+                            <p class="skin-desc">Skin motorového rušňa 752.043 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/MPxR0RoQ#3r3QQKQd7Wpwze3whTmgkSsL_ikrDDz_xZCP7FShHfE" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 12. ZSSKC 751.074 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_074.jpg" alt="ZSSKC 751.074" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 751.074</p>
+                            <p class="skin-desc">Skin motorového rušňa 751.074 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/UPIE1DRa#bxFP4g05ex-CnMRxSjNyAWjFpt2LfOYFxaomLaskBJM" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 13. ZSSKC 751.073 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_073.jpg" alt="ZSSKC 751.073" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 751.073</p>
+                            <p class="skin-desc">Skin motorového rušňa 751.073 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/sGQXiKYA#bi2r_DaeiOrIdH0yfN_4FoPC-d-xjcxyvUAj7ak8hxE" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 14. ABXSK SNPS 060 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/SNPS_060.jpg" alt="ABXSK SNPS 060" loading="lazy">
+                            <span class="type-badge badge-model">Model</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ABXSK SNPS 060</p>
+                            <p class="skin-desc">Nový model SNPS 060 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/1bxymTbJ#c1UoLQqTYQirpWyHI7V9eleJyQmLPf6f0ILAhZnwiXc" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 15. ZSSKC 751.035 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_035.jpg" alt="ZSSKC 751.035" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 751.035</p>
+                            <p class="skin-desc">Skin motorového rušňa 751.035 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/cOASBIDL#N9cDvGQskgK86Jnn8EoLbuZsFdykf6APisGZTkUzo7w" class="btn" target="_blank" rel="noopener noreferrer">Stiahnuť</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 16. ZSSKC 751.062 -->
+                <div class="col">
+                    <div class="skin-card">
+                        <div class="skin-img-wrap">
+                            <img src="img/751_062.jpg" alt="ZSSKC 751.062" loading="lazy">
+                            <span class="type-badge badge-skin">Skin</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="skin-name">ZSSKC 751.062</p>
+                            <p class="skin-desc">Skin motorového rušňa 751.062 pre OpenRails CZSK.</p>
+                            <a href="https://mega.nz/file/BTRhBA7Q#RWGm5T1iwJpUU1eGbEy9berNVQ32McdRKjATVNNpuGY" class="btn" target="_blank" rel="noopener noreferrer">
+                                Stiahnuť
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h3>Katalóg skinov Open Rails</h3>
+                    <p>
+                        Katalóg modifikácií a doplnkov pre železničný simulátor Open Rails CZSK.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <p>V prípade otázok alebo návrhov nás môžete kontaktovať:</p>
+                    <div class="footer-contact">
+                        <a href="mailto:zsr181marek@gmail.com" class="footer-contact-link">
+                            <span class="footer-icon email-icon">
+                                <i class="bi bi-envelope-fill"></i>
                             </span>
-
-                            <span class="tema-prepinac__ikona tema-prepinac__ikona--noc">
-                                ☾
+                            <span class="footer-contact-text">
+                                <strong>E-mail</strong>
+                                <small>zsr181marek@gmail.com</small>
                             </span>
-                        </span>
-                    </button>
-                    </li>
-
-                </ul>
+                            <i class="bi bi-arrow-up-right footer-arrow"></i>
+                        </a>
+                        <a href="https://www.instagram.com/zsr181marek/" target="_blank" rel="noopener noreferrer" class="footer-contact-link">
+                            <span class="footer-icon instagram-icon">
+                                <i class="bi bi-instagram"></i>
+                            </span>
+                            <span class="footer-contact-text">
+                                <strong>Instagram</strong>
+                                <small>@zsr181marek</small>
+                            </span>
+                            <i class="bi bi-arrow-up-right footer-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Autorské práva</h4>
+                    <p>
+                        Všetky zverejnené skiny, modely, textúry a ostatné materiály patria ich príslušným autorom.
+                        Rešpektujte ich autorské práva a podmienky ďalšieho používania.
+                    </p>
+                </div>
             </div>
-        </div>
-    </div>
-  </nav>
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nové skiny 15.11.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/162_008.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSK 162.008</p>
-          <p class="skin-desc">Skin elektrického rušňa 162.008 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/ULoQmT4Q#AmqFu6L_P2aixZEI_KIbUPiEZAi0ZD_NR-bUtpRIm9c" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/162_004.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSK 162.004</p>
-          <p class="skin-desc">Skin elektrického rušňa 162.004 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/pfZTATZa#YHfCXODnLLuW2d6QuEDZ9KKOupWcpePVUCGJTiOqyFo" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>    
-  </div>
-</div> 
-
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nový model a kabína 23.10.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/740_659.jpg">
-          <span class="type-badge badge-model">Model</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">JKS 740.659</p>
-          <p class="skin-desc">Upravený povodný model 74x pre lokomotívu 740.659.</p>
-          <a href="https://mega.nz/file/8SgijZBL#2bAUIjsMT9BWvCSEsaYEobjsDWns0qegIRPutLCm8sQ" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <div class="cab740659-img">
-            <img src="img/740659_z_cab1.png" alt="Kabína 740.659 – pohľad 1" loading="eager">
-            <img src="img/740659_z_cab2.png" alt="Kabína 740.659 – pohľad 2" loading="eager">
-            <img src="img/740659_z_cab3.png" alt="Kabína 740.659 – pohľad 3" loading="eager">
-          </div>
-          <span class="type-badge badge-cabin">Kabina</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">Kabina pre 740.659</p>
-          <p class="skin-desc">Upravená kabina pre 740.659.</p>
-          <a href="https://mega.nz/file/JTJQzY4K#0o5ZoyCtzrLLisfs7fl15KSQwt40Ob3Cr_SAZeCQERM" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-</div>
-
-
-
-
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nové skiny 21.9.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_037.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.037</p>
-          <p class="skin-desc">Skin motorového rušňa 751.037 v dvoch variantách pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/ICoXSSoL#9Vnhemzdehn-IcYmyZ3vNw2tzCuenvWA0d9T5CRFoao" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/742_021.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 742.021</p>
-          <p class="skin-desc">Skin motorového rušňa 742.021 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/VaICRKJI#9RmJ1POKbsX_Daclvo2TJadLPZG007ftxsNyWsbt_es" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-</div>
-
-
-
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nový skin 21.08.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_128.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.128</p>
-          <p class="skin-desc">Skin motorového rušňa 751.128 pre Openrails CZSK. K skinu treba mať kabinu ktoru najdete v sekcií Kabiny</p>
-          <a href="https://mega.nz/file/QSBDVDwR#5IYgVUBLYBcCJTDDEUe12sehWcq5U9Nn86zzCkVa7YQ" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-</div>
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nové skiny 28.07.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/752_041.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 752.041</p>
-          <p class="skin-desc">Skin motorového rušňa 752.041 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/RPA0UTLB#670G4Iey4ywZ6FCgXuuoKTMwkCsLsnkqiGWS1eDYnJ8" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/742_037.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 742.037</p>
-          <p class="skin-desc">Skin motorového rušňa 742.037 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/YSwVDbCJ#G9ALg6j1iOnU4HRAvVI2S5aPp5YV9V6pA3K9yRBqwzs" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-</div>
-
-
-
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nové skiny a aktivita 09.07.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/aktivita_Mn81271.jpg">
-            <span class="type-badge badge-aktivity">Aktivita</span>
-        </div>
-      <div class="card-body">
-        <p class="skin-name">Aktivita Mn81271</p>
-        <p class="skin-desc">Aktivita na mieru robená pre 752.043, Mn 81271 s Prešovského depa do Strážskeho. Čitajte prosím readme ešte pred aktivitou. </p>
-        <a href="https://mega.nz/file/ACYmzA7L#xjsMeuM5feDsxbsAaeh-ebPWQPhQFuw9HNNlYxDpDkI" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/752_043.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 752.043</p>
-          <p class="skin-desc">Skin motorového rušňa 752.043 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/MPxR0RoQ#3r3QQKQd7Wpwze3whTmgkSsL_ikrDDz_xZCP7FShHfE" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_074.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.074</p>
-          <p class="skin-desc">Skin motorového rušňa 751.074 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/UPIE1DRa#bxFP4g05ex-CnMRxSjNyAWjFpt2LfOYFxaomLaskBJM" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_073.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.073</p>
-          <p class="skin-desc">Skin motorového rušňa 751.073 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/sGQXiKYA#bi2r_DaeiOrIdH0yfN_4FoPC-d-xjcxyvUAj7ak8hxE" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/SNPS_060.jpg">
-          <span class="type-badge badge-model">Model</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ABXSK SNPS 060</p>
-          <p class="skin-desc">Nový model SNPS 060 pre OpenRails CZSK.</p>
-          <a href="https://mega.nz/file/1bxymTbJ#c1UoLQqTYQirpWyHI7V9eleJyQmLPf6f0ILAhZnwiXc" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-
-
-
-
-<div class="container mt-4">
-
-  <h2 class="mt-4">Nové skiny 02.07.2026</h2>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_035.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.035</p>
-          <p class="skin-desc">Skin motorového rušňa 751.035 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/cOASBIDL#N9cDvGQskgK86Jnn8EoLbuZsFdykf6APisGZTkUzo7w" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_062.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.062</p>
-          <p class="skin-desc">Skin motorového rušňa 751.062 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/BTRhBA7Q#RWGm5T1iwJpUU1eGbEy9berNVQ32McdRKjATVNNpuGY" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_109.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.109</p>
-          <p class="skin-desc">Skin motorového rušňa 751.109 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/VGg2BS7D#vtyiKfghu2g-av5QqhKHE6kD_4GWtY_LPfvB-PsZxzI" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/751_118.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC 751.118</p>
-          <p class="skin-desc">Skin motorového rušňa 751.118 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/xLIRkLpC#uJkt2ZWfV8j9EEKOY62XNxrM8rNvD9EM4qO0Dg-QtmQ" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-3">
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/740_841.jpg">
-          <span class="type-badge badge-skin">Skin</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">JKS 740.841</p>
-          <p class="skin-desc">Skin motorového rušňa 740.841 pre Openrails CZSK.</p>
-          <a href="https://mega.nz/file/pKxmlZiY#gS2ZLfibHM1C9gXKVng4IEDBKWlWEc21ObFVeI7T03U" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <img src="img/snps.jpg">
-          <span class="type-badge badge-model">Model</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">ZSSKC SNPS 157</p>
-          <p class="skin-desc">Nový model SNPS 157 pre OpenRails CZSK.</p>
-          <a href="https://mega.nz/file/FPoTRCBK#GkcV8eu6NXlM5DHZF8wM6Nb0iNdtnw7YX-IFRI-SBNM" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <div class="cab751-img">
-            <img src="img/751_z_cab1.jpg" alt="Kabína 751 – pohľad 1" loading="eager">
-            <img src="img/751_z_cab2.jpg" alt="Kabína 751 – pohľad 2" loading="eager">
-            <img src="img/751_z_cab3.jpg" alt="Kabína 751 – pohľad 3" loading="eager">
-          </div>
-          <span class="type-badge badge-cabin">Kabina</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">Kabiny pre 751</p>
-          <p class="skin-desc">Balíček kabín pre rušne 751.</p>
-          <a href="https://mega.nz/file/0HIThDpZ#ZjP_tmS93Ttp3tWN5_SDv9vifSw3Lz4crCZnKgGjpmU" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="skin-card">
-        <div class="skin-img-wrap">
-          <div class="cab740-img">
-            <img src="img/740_z_cab1.jpg" alt="Kabína 740 – pohľad 1" loading="eager">
-            <img src="img/740_z_cab2.jpg" alt="Kabína 740 – pohľad 2" loading="eager">
-            <img src="img/740_z_cab3.jpg" alt="Kabína 740 – pohľad 3" loading="eager">
-          </div>
-          <span class="type-badge badge-cabin">Kabina</span>
-        </div>
-        <div class="card-body">
-          <p class="skin-name">Kabina pre 740</p>
-          <p class="skin-desc">Balíček kabín pre rušne 740.</p>
-          <a href="https://mega.nz/file/BKw2kZrB#jt2A15dsOAqHQNdAxq_2DAs7R7IHY-R3teF0TLoHBWI" class="btn" download>Stiahnuť</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/auth-status.js"></script>
-<script src="js/reviews.js"></script>
-<script src="js/theme.js"></script>
-</body>
+            <div class="footer-bottom">
+                <p>© 2026 zsr181marek Katalóg skinov Open Rails CZSK. Všetky práva vyhradené.</p>
+            </div>
+        </footer>
+
+        <!-- JAVASCRIPT -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <script src="js/auth-status.js"></script>
+        <script src="js/reviews.js"></script>
+        <script src="js/theme.js"></script>
+    </body>
 </html>
