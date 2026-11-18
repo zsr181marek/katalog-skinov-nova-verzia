@@ -1,3 +1,4 @@
+
 /* =========================================================
 KATALÓG SKINOV OPEN RAILS
 Kompletný CSS – denný a nočný režim
@@ -104,6 +105,10 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--navbar-bg);
 }
 
+.navbar > .container {
+    height: 70px;
+}
+
 .navbar .navbar-toggler {
     border-color: rgba(255, 255, 255, .35);
 }
@@ -116,7 +121,8 @@ h1, h2, h3, h4, h5, h6 {
     color: rgba(255, 255, 255, .85);
 }
 
-.navbar .nav-link:hover, .navbar .nav-link:focus {
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
     color: #ffffff;
 }
 
@@ -228,7 +234,8 @@ h1, h2, h3, h4, h5, h6 {
 8. TLAČIDLÁ
 ========================================================= */
 
-.skin-card .btn, .auth-container .btn {
+.skin-card .btn,
+.auth-container .btn {
     display: block;
     width: 100%;
     margin-top: 8px;
@@ -245,7 +252,8 @@ h1, h2, h3, h4, h5, h6 {
     transition: transform .2s, box-shadow .2s;
 }
 
-.skin-card .btn:hover, .auth-container .btn:hover {
+.skin-card .btn:hover,
+.auth-container .btn:hover {
     color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
@@ -262,7 +270,8 @@ h1, h2, h3, h4, h5, h6 {
 9. NADPISY
 ========================================================= */
 
-.col-12 h1, .col-12 h2 {
+.col-12 h1,
+.col-12 h2 {
     margin: 25px 0 10px;
     font-weight: 700;
 }
@@ -271,7 +280,9 @@ h1, h2, h3, h4, h5, h6 {
 10. STRIEDANIE OBRÁZKOV KABÍN
 ========================================================= */
 
-.cab751-img, .cab740-img, .cab740659-img {
+.cab751-img,
+.cab740-img,
+.cab740659-img {
     position: relative;
     width: 100%;
     height: 200px;
@@ -279,7 +290,9 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--card-img-bg);
 }
 
-.cab751-img img, .cab740-img img, .cab740659-img img {
+.cab751-img img,
+.cab740-img img,
+.cab740659-img img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -292,15 +305,21 @@ h1, h2, h3, h4, h5, h6 {
     animation-timing-function: linear;
 }
 
-.cab751-img img:nth-child(1), .cab740-img img:nth-child(1), .cab740659-img img:nth-child(1) {
+.cab751-img img:nth-child(1),
+.cab740-img img:nth-child(1),
+.cab740659-img img:nth-child(1) {
     animation-name: show1;
 }
 
-.cab751-img img:nth-child(2), .cab740-img img:nth-child(2), .cab740659-img img:nth-child(2) {
+.cab751-img img:nth-child(2),
+.cab740-img img:nth-child(2),
+.cab740659-img img:nth-child(2) {
     animation-name: show2;
 }
 
-.cab751-img img:nth-child(3), .cab740-img img:nth-child(3), .cab740659-img img:nth-child(3) {
+.cab751-img img:nth-child(3),
+.cab740-img img:nth-child(3),
+.cab740659-img img:nth-child(3) {
     animation-name: show3;
 }
 
@@ -312,7 +331,6 @@ h1, h2, h3, h4, h5, h6 {
     33.33%, 100% {
         opacity: 0;
     }
-
 }
 
 @keyframes show2 {
@@ -327,7 +345,6 @@ h1, h2, h3, h4, h5, h6 {
     66.66%, 100% {
         opacity: 0;
     }
-
 }
 
 @keyframes show3 {
@@ -342,7 +359,6 @@ h1, h2, h3, h4, h5, h6 {
     100% {
         opacity: 0;
     }
-
 }
 
 /* =========================================================
@@ -401,7 +417,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 12px;
 }
 
-\#message {
+#message {
     overflow-wrap: anywhere;
 }
 
@@ -409,11 +425,14 @@ h1, h2, h3, h4, h5, h6 {
 13. VŠEOBECNÉ FORMULÁRE
 ========================================================= */
 
-input, textarea, select {
+input,
+textarea,
+select {
     color: var(--input-text);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: var(--secondary);
 }
 
@@ -550,7 +569,7 @@ html[data-theme="dark"] .form-control:disabled {
     background: #ffffff;
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
-    transition: transform .3s ease;
+    transition: left .3s ease;
     z-index: 2;
 }
 
@@ -581,7 +600,7 @@ html[data-theme="dark"] .tema-prepinac {
 }
 
 html[data-theme="dark"] .tema-prepinac__gulicka {
-    transform: translateX(30px);
+    left: 34px;
 }
 
 .tema-prepinac:hover {
@@ -597,7 +616,11 @@ html[data-theme="dark"] .tema-prepinac__gulicka {
 16. PRECHODY PRI ZMENE TÉMY
 ========================================================= */
 
-.skin-card, .auth-container, .review-form, .review-entry, .review-admin-reply {
+.skin-card,
+.auth-container,
+.review-form,
+.review-entry,
+.review-admin-reply {
     transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
@@ -676,8 +699,6 @@ html[data-theme="dark"] .auth-container {
     transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
-/* Celý jeden príspevok */
-
 .latest-slide {
     display: flex;
     align-items: stretch;
@@ -685,8 +706,6 @@ html[data-theme="dark"] .auth-container {
     min-height: 440px;
     background: var(--surface);
 }
-
-/* Ľavá časť – fotografia */
 
 .latest-image {
     display: flex;
@@ -707,8 +726,6 @@ html[data-theme="dark"] .auth-container {
     object-position: center;
 }
 
-/* Pravá časť – informácie o skine */
-
 .latest-info {
     display: flex;
     flex: 1 1 42%;
@@ -721,8 +738,6 @@ html[data-theme="dark"] .auth-container {
     color: var(--text);
 }
 
-/* Typ skinu */
-
 .latest-info .type-badge {
     position: static;
     display: inline-block;
@@ -730,8 +745,6 @@ html[data-theme="dark"] .auth-container {
     padding: 6px 12px;
     font-size: 11.2px;
 }
-
-/* Dátum */
 
 .latest-info .latest-date {
     display: block;
@@ -742,8 +755,6 @@ html[data-theme="dark"] .auth-container {
     letter-spacing: .3px;
 }
 
-/* Názov skinu */
-
 .latest-info h3 {
     margin: 0 0 15px;
     color: var(--text);
@@ -752,16 +763,12 @@ html[data-theme="dark"] .auth-container {
     line-height: 1.2;
 }
 
-/* Popis */
-
 .latest-info p {
     margin: 0 0 24px;
     color: var(--secondary);
     font-size: 15.36px;
     line-height: 1.7;
 }
-
-/* V prípade samostatného dátumu v inom elemente */
 
 .latest-info small {
     color: var(--secondary);
@@ -807,22 +814,23 @@ html[data-theme="dark"] .auth-container {
 20. OVLÁDANIE CAROUSELU
 ========================================================= */
 
-.latest-carousel .carousel-control-prev, .latest-carousel .carousel-control-next {
+.latest-carousel .carousel-control-prev,
+.latest-carousel .carousel-control-next {
     width: 7%;
     opacity: .8;
     z-index: 6;
     transition: opacity .2s ease;
 }
 
-.latest-carousel .carousel-control-prev:hover, .latest-carousel .carousel-control-next:hover {
+.latest-carousel .carousel-control-prev:hover,
+.latest-carousel .carousel-control-next:hover {
     opacity: 1;
 }
 
-.latest-carousel .carousel-control-prev-icon, .latest-carousel .carousel-control-next-icon {
+.latest-carousel .carousel-control-prev-icon,
+.latest-carousel .carousel-control-next-icon {
     filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .8));
 }
-
-/* Indikátory */
 
 .latest-carousel .carousel-indicators {
     position: absolute;
@@ -861,7 +869,8 @@ html[data-theme="light"] .latest-carousel {
     border-color: #dce1e8;
 }
 
-html[data-theme="light"] .latest-slide, html[data-theme="light"] .latest-info {
+html[data-theme="light"] .latest-slide,
+html[data-theme="light"] .latest-info {
     background: #ffffff;
 }
 
@@ -879,7 +888,8 @@ html[data-theme="dark"] .latest-carousel {
     box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
 }
 
-html[data-theme="dark"] .latest-slide, html[data-theme="dark"] .latest-info {
+html[data-theme="dark"] .latest-slide,
+html[data-theme="dark"] .latest-info {
     background: #202938;
 }
 
@@ -921,7 +931,6 @@ html[data-theme="dark"] .latest-image {
     .latest-info h3 {
         font-size: 27.2px;
     }
-
 }
 
 @media (max-width: 576px) {
@@ -984,7 +993,8 @@ html[data-theme="dark"] .latest-image {
         padding: 11px 16px;
     }
 
-    .latest-carousel .carousel-control-prev, .latest-carousel .carousel-control-next {
+    .latest-carousel .carousel-control-prev,
+    .latest-carousel .carousel-control-next {
         width: 12%;
     }
 
@@ -999,19 +1009,21 @@ html[data-theme="dark"] .latest-image {
     .latest-carousel .carousel-indicators button.active {
         width: 30px;
     }
-
 }
 
 /* =========================================================
 24. RESPONZÍVNA NAVIGÁCIA
-Menu sa zbalí pri šírke 1349 px a menej.
+Menu je rozbaliteľné do šírky 1349 px.
 ========================================================= */
 
 @media (max-width: 1349.98px) {
+
     .navbar .navbar-toggler {
         display: block;
         margin-left: auto;
     }
+
+    /* Rozbaľovacie menu */
 
     .navbar #offcanvasNavbar {
         position: fixed;
@@ -1023,27 +1035,11 @@ Menu sa zbalí pri šírke 1349 px a menej.
         flex-direction: column;
         width: 320px;
         max-width: 85vw;
-        height: 100vh;
-        max-height: 100vh;
+        height: 100%;
         margin: 0;
         padding: 0;
-        visibility: hidden;
-        transform: translateX(100%);
         background-color: #212529;
-        border: 0;
-        z-index: 1055;
         overflow-y: auto;
-        transition: transform .3s ease-in-out, visibility .3s ease-in-out;
-    }
-
-    .navbar #offcanvasNavbar.show, .navbar #offcanvasNavbar.showing {
-        visibility: visible;
-        transform: translateX(0);
-    }
-
-    .navbar #offcanvasNavbar.hiding {
-        visibility: hidden;
-        transform: translateX(100%);
     }
 
     .navbar #offcanvasNavbar .offcanvas-header {
@@ -1055,7 +1051,7 @@ Menu sa zbalí pri šírke 1349 px a menej.
     .navbar #offcanvasNavbar .offcanvas-body {
         display: block;
         flex-grow: 1;
-        width: 100%;
+        padding: 16px;
         overflow-y: auto;
     }
 
@@ -1063,7 +1059,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: flex-start;
         flex-wrap: nowrap;
         width: 100%;
     }
@@ -1080,18 +1075,23 @@ Menu sa zbalí pri šírke 1349 px a menej.
         white-space: normal;
     }
 
+    /* Prepínač témy */
+
+    .navbar #offcanvasNavbar .nav-item.d-flex {
+        align-items: flex-start;
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
     /* Indikátor prihlásenia */
 
     .navbar .auth-indicator {
         position: static;
-        top: auto;
-        right: auto;
         transform: none;
         display: inline-flex;
         width: fit-content;
         max-width: 100%;
-        margin: 8px 0 0 0;
-        z-index: auto;
+        margin: 8px 0 0;
     }
 
     .navbar .auth-status-nav-item {
@@ -1100,13 +1100,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
         align-items: flex-start;
         width: 100%;
     }
-
-    .navbar #offcanvasNavbar .nav-item:has(.auth-indicator) {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
 }
 
 /* =========================================================
@@ -1114,12 +1107,17 @@ Menu sa zbalí pri šírke 1349 px a menej.
 ========================================================= */
 
 @media (min-width: 1350px) {
+
     .navbar .navbar-toggler {
         display: none;
     }
 
     .navbar #offcanvasNavbar {
         position: static;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
         display: flex;
         flex-direction: row;
         width: auto;
@@ -1133,6 +1131,8 @@ Menu sa zbalí pri šírke 1349 px a menej.
         overflow: visible;
         background-color: transparent;
         border: 0;
+        transition: none;
+        z-index: auto;
     }
 
     .navbar #offcanvasNavbar .offcanvas-header {
@@ -1142,6 +1142,7 @@ Menu sa zbalí pri šírke 1349 px a menej.
     .navbar #offcanvasNavbar .offcanvas-body {
         display: flex;
         flex-grow: 1;
+        flex-direction: row;
         align-items: center;
         padding: 0;
         overflow: visible;
@@ -1174,12 +1175,12 @@ Menu sa zbalí pri šírke 1349 px a menej.
         padding-right: 12px;
     }
 
-    /* Indikátor prihlásenia zostáva vpravo */
+    /* Indikátor prihlásenia */
 
     .navbar .auth-indicator {
         position: absolute;
-        right: 15px;
         top: 50%;
+        right: 15px;
         transform: translateY(-50%);
         margin: 0;
     }
@@ -1189,7 +1190,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
         align-items: center;
         width: auto;
     }
-
 }
 
 /* =========================================================
@@ -1197,6 +1197,7 @@ Menu sa zbalí pri šírke 1349 px a menej.
 ========================================================= */
 
 @media (max-width: 600px) {
+
     .auth-indicator {
         gap: 5px;
         margin-left: 4px;
@@ -1214,7 +1215,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
         padding: 4px 6px;
         font-size: 11px;
     }
-
 }
 
 /* =========================================================
@@ -1246,8 +1246,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     pointer-events: none;
 }
 
-/* Kontajner footeru */
-
 .footer-container {
     position: relative;
     display: grid;
@@ -1257,8 +1255,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     margin: 0 auto;
     padding-bottom: 45px;
 }
-
-/* Značka a názov */
 
 .footer-brand {
     max-width: 350px;
@@ -1278,8 +1274,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     line-height: 1.8;
 }
 
-/* Sekcie footeru */
-
 .footer-section h4 {
     margin: 5px 0 22px;
     color: #ffffff;
@@ -1294,8 +1288,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     line-height: 1.8;
 }
 
-/* Kontaktné odkazy */
-
 .footer-contact {
     display: flex;
     flex-direction: column;
@@ -1303,7 +1295,8 @@ Menu sa zbalí pri šírke 1349 px a menej.
     margin-top: 18px;
 }
 
-.footer-contact-link, .footer-contact-link:visited {
+.footer-contact-link,
+.footer-contact-link:visited {
     display: flex;
     align-items: center;
     gap: 13px;
@@ -1320,8 +1313,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     border-color: rgba(46, 204, 113, .45);
     background: rgba(46, 204, 113, .07);
 }
-
-/* Ikony */
 
 .footer-icon {
     display: flex;
@@ -1343,8 +1334,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
 }
 
-/* Text kontaktu */
-
 .footer-contact-text {
     display: flex;
     flex-direction: column;
@@ -1363,8 +1352,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
     overflow-wrap: anywhere;
 }
 
-/* Šípka */
-
 .footer-arrow {
     margin-left: auto;
     color: #2ecc71;
@@ -1375,8 +1362,6 @@ Menu sa zbalí pri šírke 1349 px a menej.
 .footer-contact-link:hover .footer-arrow {
     transform: translate(3px, -3px);
 }
-
-/* Spodná lišta */
 
 .footer-bottom {
     position: relative;
@@ -1405,15 +1390,18 @@ html[data-theme="light"] .site-footer::before {
     background: rgba(46, 204, 113, .08);
 }
 
-html[data-theme="light"] .footer-brand h3, html[data-theme="light"] .footer-section h4 {
+html[data-theme="light"] .footer-brand h3,
+html[data-theme="light"] .footer-section h4 {
     color: #212529;
 }
 
-html[data-theme="light"] .footer-brand p, html[data-theme="light"] .footer-section > p {
+html[data-theme="light"] .footer-brand p,
+html[data-theme="light"] .footer-section > p {
     color: #626b73;
 }
 
-html[data-theme="light"] .footer-contact-link, html[data-theme="light"] .footer-contact-link:visited {
+html[data-theme="light"] .footer-contact-link,
+html[data-theme="light"] .footer-contact-link:visited {
     background: #f8f9fa;
     border-color: #e5e8eb;
 }
@@ -1453,7 +1441,6 @@ html[data-theme="light"] .footer-bottom p {
         grid-column: 1 / -1;
         max-width: 500px;
     }
-
 }
 
 @media (max-width: 576px) {
@@ -1480,7 +1467,6 @@ html[data-theme="light"] .footer-bottom p {
         font-size: 12px;
         line-height: 1.6;
     }
-
 }
 
 /* =========================================================
@@ -1488,11 +1474,37 @@ html[data-theme="light"] .footer-bottom p {
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         scroll-behavior: auto;
         animation-duration: .01ms;
         animation-iteration-count: 1;
         transition-duration: .01ms;
     }
+}
 
+@media (min-width: 1350px) {
+
+    .navbar > .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .navbar #offcanvasNavbar {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .navbar #offcanvasNavbar .offcanvas-body {
+        justify-content: center;
+    }
+
+    .navbar #offcanvasNavbar .navbar-nav {
+        justify-content: center;
+    }
 }
