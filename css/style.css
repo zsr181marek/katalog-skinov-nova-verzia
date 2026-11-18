@@ -1508,3 +1508,217 @@ html[data-theme="light"] .footer-bottom p {
         justify-content: center;
     }
 }
+/* =========================================================
+31. PRIHLÁSENIE A OBNOVENIE HESLA – SPOLOČNÝ VZHĽAD
+========================================================= */
+
+.auth-container {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .10);
+    transition:
+        background-color .25s ease,
+        color .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+/* Nadpisy */
+
+.auth-container h1,
+.auth-container h2,
+.auth-container h3 {
+    color: var(--text);
+    font-weight: 800;
+}
+
+/* Popisné texty */
+
+.auth-container p,
+.auth-container .text-muted {
+    color: var(--secondary) !important;
+}
+
+/* Popisy polí */
+
+.auth-container .form-label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* Vstupné polia */
+
+.auth-container .form-control {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition:
+        background-color .25s ease,
+        color .25s ease,
+        border-color .25s ease,
+        box-shadow .2s ease;
+}
+
+.auth-container .form-control::placeholder {
+    color: var(--secondary);
+    opacity: .8;
+}
+
+.auth-container .form-control:focus {
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, .15);
+}
+
+/* Ikony pri prihlasovacích poliach */
+
+.auth-container .input-group-text {
+    background-color: var(--form-bg);
+    color: var(--secondary);
+    border: 1px solid var(--border);
+}
+
+/* Zjednotenie rohov input skupín */
+
+.auth-container .input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+.auth-container .input-group .input-group-text {
+    border-radius: 8px 0 0 8px;
+}
+
+/* Odkazy */
+
+.auth-container a {
+    color: var(--green-h);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.auth-container a:hover {
+    color: var(--green);
+    text-decoration: underline;
+}
+
+/* Tlačidlá */
+
+.auth-container .btn {
+    background: linear-gradient(135deg, var(--green), var(--green-h));
+    color: #ffffff;
+    border: none;
+}
+
+.auth-container .btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Správy po odoslaní formulára */
+
+.auth-container #message {
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+32. DENNÝ REŽIM
+========================================================= */
+
+html[data-theme="light"] .auth-container {
+    background: #ffffff;
+    color: #1a1f29;
+    border-color: #e1e5eb;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .10);
+}
+
+html[data-theme="light"] .auth-container .form-control {
+    background-color: #ffffff;
+    color: #303846;
+    border-color: #dce1e8;
+}
+
+html[data-theme="light"] .auth-container .input-group-text {
+    background-color: #f1f3f6;
+    color: #6b7280;
+    border-color: #dce1e8;
+}
+
+/* =========================================================
+33. NOČNÝ REŽIM
+========================================================= */
+
+html[data-theme="dark"] .auth-container {
+    background: #202938;
+    color: #f1f3f5;
+    border-color: #343e4e;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .28);
+}
+
+html[data-theme="dark"] .auth-container h1,
+html[data-theme="dark"] .auth-container h2,
+html[data-theme="dark"] .auth-container h3,
+html[data-theme="dark"] .auth-container .form-label {
+    color: #f1f3f5;
+}
+
+html[data-theme="dark"] .auth-container p,
+html[data-theme="dark"] .auth-container .text-muted {
+    color: #adb5bd !important;
+}
+
+html[data-theme="dark"] .auth-container .form-control {
+    background-color: #1b2431;
+    color: #f1f3f5;
+    border-color: #343e4e;
+}
+
+html[data-theme="dark"] .auth-container .form-control::placeholder {
+    color: #929eae;
+}
+
+html[data-theme="dark"] .auth-container .input-group-text {
+    background-color: #252f40;
+    color: #adb5bd;
+    border-color: #343e4e;
+}
+
+html[data-theme="dark"] .auth-container a {
+    color: #4dabff;
+}
+
+html[data-theme="dark"] .auth-container a:hover {
+    color: #80c4ff;
+}
+
+/* Automaticky doplnené údaje prehliadačom */
+
+html[data-theme="dark"] .auth-container input:-webkit-autofill,
+html[data-theme="dark"] .auth-container input:-webkit-autofill:hover,
+html[data-theme="dark"] .auth-container input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f1f3f5;
+    box-shadow: 0 0 0 1000px #1b2431 inset;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Mobilné zobrazenie */
+
+@media (max-width: 576px) {
+    .auth-container {
+        margin: 35px 12px;
+        padding: 22px;
+    }
+
+    .auth-container h1 {
+        font-size: 25px;
+    }
+}
